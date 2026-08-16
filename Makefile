@@ -8,6 +8,7 @@ SRC := \
 	$(FOLDER)/main.c \
 	$(FOLDER)/parser.c \
 	$(FOLDER)/parser_utils.c \
+	$(FOLDER)/coder.c \
 
 OBJ = $(SRC:.c=.o)
 

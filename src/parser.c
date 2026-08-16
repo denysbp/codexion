@@ -59,6 +59,7 @@ coder_t	create_coders(program_t	**program, int id)
 	coder.last_compile = 0;
 	coder.left = &(*program)->dongles[id - 1];
 	coder.right = &(*program)->dongles[((id - 1) + 1) % (*program)->numbers_coders];
+	pthread_create(&coder.coder, NULL, &couder_routine, NULL);
 	return (coder);
 }
 
@@ -92,6 +93,12 @@ program_t	*generator_engine(char **argv, error_t *error)
 	while (i < program->numbers_coders)
 	{
 		program->coders[i] = create_coders(&program, i + 1);
+		i++;
+	}
+	i = 0;
+	while (i < program->numbers_coders)
+	{
+		pthread_join(program->coders[i].coder, NULL);
 		i++;
 	}
 	return (program);
