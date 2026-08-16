@@ -72,7 +72,7 @@ typedef struct heap_s
 bool		invalid_numbers(const char *str);
 bool		signal(char c);
 int			parser(const char *numbers_coders, error_t **error);
-int			ft_strcpy(char *dest, char *src);
+char		*ft_strcpy(char *src);
 int			save_args(char **argv, program_t **program, error_t *error);
 
 program_t	*generator_engine(char **argv, error_t *error);

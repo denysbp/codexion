@@ -8,7 +8,7 @@ heap_t	*heap_init(int capacity, char *scheduler)
 	heap->coders = malloc(sizeof(coder_t) * capacity);
 	heap->size = 0;
 	heap->capacity = capacity;
-	ft_strcpy(heap->scheduler, scheduler);
+	heap->scheduler = ft_strcpy(scheduler);
 	return (heap);
 }
 
@@ -21,4 +21,5 @@ void	free_heap(heap_t *heap)
 {
 	free(heap->coders);
 	free(heap);
+	free(heap->scheduler);
 }

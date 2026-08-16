@@ -1,18 +1,20 @@
 #include "../includes/codexion.h"
 
 
-int	ft_strcpy(char *dest, char *src)
+char	*ft_strcpy(char *src)
 {
-	int	i;
-	int	len;
+	int		i;
+	int		len;
+	char	*dest;
 
 	i = 0;
 	len = strlen(src);
+	dest = malloc(sizeof(char) * len);
 	while (i < len)
 	{
 		dest[i] = src[i];
 		i++;
 	}
 	dest[i] = '\0';
-	return (len);
+	return (dest);
 }
