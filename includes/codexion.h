@@ -60,14 +60,32 @@ typedef struct program_s
 	char			*scheduler;
 } 					program_t;
 
+typedef struct heap_s
+{
+	coder_t	**coders;
+	int		size;
+	int		capacity;
+	char	*scheduler;
+}			heap_t;
+
+
 bool		invalid_numbers(const char *str);
-int			parser(const char *numbers_coders, error_t **error);
-char		*error_message(const char *str);
 bool		signal(char c);
-void		*couder_routine(void *);
+int			parser(const char *numbers_coders, error_t **error);
+int			ft_strcpy(char *dest, char *src);
+int			save_args(char **argv, program_t **program, error_t *error);
+
 program_t	*generator_engine(char **argv, error_t *error);
 coder_t		create_coders(program_t	**program, int id);
 dongle_t	create_dongles(int id);
-int			save_args(char **argv, program_t **program, error_t *error);
+heap_t		*heap_init(int capacity, char *scheduler);
+
+void		*couder_routine(void *);
+void		free_engine(program_t *program);
+void		heapfy(heap_t **heap, int i);
+void		free_heap(heap_t *heap);
+
+char		*error_message(const char *str);
+
 
 #endif

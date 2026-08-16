@@ -9,6 +9,9 @@ SRC := \
 	$(FOLDER)/parser.c \
 	$(FOLDER)/parser_utils.c \
 	$(FOLDER)/coder.c \
+	$(FOLDER)/heap.c \
+	$(FOLDER)/helps.c \
+	$(FOLDER)/engine.c \
 
 OBJ = $(SRC:.c=.o)
 

@@ -19,14 +19,15 @@ int	main(int argc, char **argv)
 		printf("%s\n", error.str);
 		return (-1);
 	}
-	// printf("%d\n", program->numbers_coders);
-	// printf("%d\n", program->time_to_burnout);
-	// printf("%d\n", program->time_to_compile);
-	// printf("%d\n", program->time_to_debug);
-	// printf("%d\n", program->time_to_refactor);
-	// printf("%d\n", program->numbers_of_compiles);
-	// printf("%d\n", program->dongle_cooldown);
-	// printf("%s\n", program->scheduler);
-	// printf("%d\n", program->runnig);
+	printf("%d\n", program->numbers_coders);
+	printf("%d\n", program->time_to_burnout);
+	printf("%d\n", program->time_to_compile);
+	printf("%d\n", program->time_to_debug);
+	printf("%d\n", program->time_to_refactor);
+	printf("%d\n", program->numbers_of_compiles);
+	printf("%d\n", program->dongle_cooldown);
+	printf("%s\n", program->scheduler);
+	printf("%d\n", program->runnig);
+	free_engine(program);
 	return (0);
 }
