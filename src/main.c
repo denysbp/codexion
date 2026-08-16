@@ -1,47 +1,32 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: deferrei <deferrei@student.42lisboa.com    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/08/11 14:05:56 by deferrei          #+#    #+#             */
-/*   Updated: 2026/08/11 21:54:43 by deferrei         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../includes/codexion.h"
 
-pthread_mutex_t mutex;
-
-
-
-void	*routine(void *str)
+int	main(int argc, char **argv)
 {
-	int *numero;
-	numero = (int *)str;
-	pthread_mutex_lock(&mutex);
-	if (*(numero) == 10000)
+	if (argc != 9)
 	{
-		*(numero) -= 10000;
-		pthread_mutex_unlock(&mutex);
-		printf("Eu ganhei\n");
+		printf("Program usage: ./codexion ");
+		printf("number_of_coders time_to_burnout time_to_compile time_to_debug");
+		printf("time_to_refactor number_of_compiles_required dongle_cooldown scheduler\n");
+		return (-1);
 	}
-	else
-		printf("Eu perdi\n");
-	return (NULL);
-}
+	error_t	error;
+	program_t	*program;
 
-int	main(void)
-{
-	pthread_t t1, t2;
-	pthread_mutex_init(&mutex, NULL);
-	int primo;
-	primo = 10000;
-	pthread_create(&t1, NULL, &routine, &primo);
-	pthread_create(&t2, NULL, &routine, &primo);
-	pthread_join(t1, NULL);
-	pthread_join(t2, NULL);
-
+	error.str = "";
+	program = generator_engine(argv, &error);
+	if (!program)
+	{
+		printf("%s\n", error.str);
+		return (-1);
+	}
+	printf("%d\n", program->numbers_coders);
+	printf("%d\n", program->time_to_burnout);
+	printf("%d\n", program->time_to_compile);
+	printf("%d\n", program->time_to_debug);
+	printf("%d\n", program->time_to_refactor);
+	printf("%d\n", program->numbers_of_compiles);
+	printf("%d\n", program->dongle_cooldown);
+	printf("%s\n", program->scheduler);
+	printf("%d\n", program->runnig);
 	return (0);
 }
