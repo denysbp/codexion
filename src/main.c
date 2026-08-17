@@ -24,18 +24,11 @@ int	main(int argc, char **argv)
 	heap = heap_init(program->numbers_coders, program->scheduler);
 	for (int i = program->numbers_coders - 1; i >= 0; i--)
 	{
-		printf("PUSH: coder %d | size antes = %d\n",
-			program->coders[i].id, heap->size);
-
-		heappush(&heap, &program->coders[i], program->scheduler);
-
-		printf("size depois = %d\n", heap->size);
+		heappush(&heap, &program->coders[i]);
 	}
-	// printf("%s\n", heap->scheduler);
-	// printf("%d\n", heap->size);
-	// printf("%d\n", heap->capacity);
 	printf("%d\n", heap->coders[0]->id);
 	printf("%ld\n", heap->coders[0]->last_compile);
 	free_heap(heap);
+	free_engine(program);
 	return (0);
 }

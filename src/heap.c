@@ -12,7 +12,7 @@ heap_t	*heap_init(int capacity, char *scheduler)
 	return (heap);
 }
 
-void	heapfy(heap_t **heap, int i, char *scheduler)
+void	heapfy(heap_t **heap, int i)
 {
 	int	priority;
 	int	left;
@@ -23,22 +23,22 @@ void	heapfy(heap_t **heap, int i, char *scheduler)
 	right = 2 * i + 2;
 
 	if (left < (*heap)->size &&
-		has_priority((*heap)->coders[left], (*heap)->coders[priority], scheduler))
+		has_priority((*heap)->coders[left], (*heap)->coders[priority], (*heap)->scheduler))
 		priority = left;
 
 	if (right < (*heap)->size &&
-		has_priority((*heap)->coders[right], (*heap)->coders[priority], scheduler))
+		has_priority((*heap)->coders[right], (*heap)->coders[priority], (*heap)->scheduler))
 		priority = right;
 
 	if (priority != i)
 	{
 		swap(&(*heap)->coders[i], &(*heap)->coders[priority]);
-		heapfy(heap, priority, scheduler);
+		heapfy(heap, priority);
 	}
 	return ;
 }
 
-void	heappush(heap_t	**heap, coder_t	*coder, char *scheduler)
+void	heappush(heap_t	**heap, coder_t	*coder)
 {
 	int	i;
 
@@ -48,7 +48,7 @@ void	heappush(heap_t	**heap, coder_t	*coder, char *scheduler)
 	(*heap)->size++;
 	i = (*heap)->size - 1;
 	(*heap)->coders[i] = coder;
-	while (i != 0 && has_priority((*heap)->coders[i], (*heap)->coders[(i - 1) / 2], scheduler))
+	while (i != 0 && has_priority((*heap)->coders[i], (*heap)->coders[(i - 1) / 2], (*heap)->scheduler))
 	{
 		swap(&(*heap)->coders[i], &(*heap)->coders[(i - 1) / 2]);
 		i = (i - 1) / 2;
@@ -57,7 +57,7 @@ void	heappush(heap_t	**heap, coder_t	*coder, char *scheduler)
 }
 
 
-coder_t	*heappop(heap_t **heap,  char *scheduler)
+coder_t	*heappop(heap_t **heap)
 {
 	coder_t	*coder;
 
@@ -71,7 +71,7 @@ coder_t	*heappop(heap_t **heap,  char *scheduler)
 	coder = (*heap)->coders[0];
 	(*heap)->coders[0] = (*heap)->coders[(*heap)->size - 1];
 	(*heap)->size--;
-	heapfy(heap, 0, scheduler);
+	heapfy(heap, 0);
 	return (coder);
 }
 

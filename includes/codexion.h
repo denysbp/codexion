@@ -86,12 +86,12 @@ program_t	*generator_engine(char **argv, error_t *error);
 coder_t		create_coders(program_t	**program, int id);
 dongle_t	create_dongles(int id);
 heap_t		*heap_init(int capacity, char *scheduler);
-coder_t		*heappop(heap_t **heap,  char *scheduler);
+coder_t		*heappop(heap_t **heap);
 
 void		*couder_routine(void *);
 void		free_engine(program_t *program);
-void		heapfy(heap_t **heap, int i, char *scheduler);
-void		heappush(heap_t	**heap, coder_t	*coder, char *scheduler);
+void		heapfy(heap_t **heap, int i);
+void		heappush(heap_t	**heap, coder_t	*coder);
 void		swap(coder_t **coder_a, coder_t **coder_b);
 void		free_heap(heap_t *heap);
 
