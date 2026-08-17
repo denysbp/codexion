@@ -9,7 +9,7 @@ char	*ft_strcpy(char *src)
 
 	i = 0;
 	len = strlen(src);
-	dest = malloc(sizeof(char) * len);
+	dest = malloc(sizeof(char) * len + 1);
 	while (i < len)
 	{
 		dest[i] = src[i];

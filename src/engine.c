@@ -8,7 +8,10 @@ program_t	*generator_engine(char **argv, error_t *error)
 	i = 0;
 	program = malloc(sizeof(program_t));
 	if (save_args(argv, &program, error) == ERROR)
+	{
+		free(program);
 		return (NULL);
+	}
 	program->coders = malloc(sizeof(coder_t) * program->numbers_coders);
 	program->dongles = malloc(sizeof(dongle_t) * program->numbers_coders);
 	while (i < program->numbers_coders)

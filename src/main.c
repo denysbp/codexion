@@ -15,12 +15,13 @@ int	main(int argc, char **argv)
 
 	error.str = "";
 	program = generator_engine(argv, &error);
-	heap = heap_init(program->numbers_coders, program->scheduler);
 	if (!program)
 	{
 		printf("%s\n", error.str);
+		free(error.str);
 		return (-1);
 	}
+	heap = heap_init(program->numbers_coders, program->scheduler);
 	// printf("%d\n", program->numbers_coders);
 	// printf("%d\n", program->time_to_burnout);
 	// printf("%d\n", program->time_to_compile);
@@ -33,7 +34,6 @@ int	main(int argc, char **argv)
 	printf("%s\n", heap->scheduler);
 	printf("%d\n", heap->size);
 	printf("%d\n", heap->capacity);
-	free_engine(program);
 	free_heap(heap);
 	return (0);
 }

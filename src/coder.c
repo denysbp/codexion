@@ -15,6 +15,7 @@ coder_t	create_coders(program_t	**program, int id)
 
 	coder.id = id;
 	coder.burned_out = false;
+	coder.time_to_burnout = (*program)->time_to_burnout;
 	coder.dongles = 0;
 	coder.last_compile = 0;
 	coder.left = &(*program)->dongles[id - 1];
@@ -30,4 +31,9 @@ dongle_t	create_dongles(int id)
 	dongle.id = id;
 	pthread_mutex_init(&dongle.mutex_dongle, NULL);
 	return (dongle);
+}
+
+int	dealine(coder_t *coder)
+{
+	return (coder->last_compile + coder->time_to_burnout);
 }
