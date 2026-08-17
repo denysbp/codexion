@@ -4,7 +4,7 @@
 void	*couder_routine(void *s)
 {
 	(void)s;
-	printf("ola\n");
+	printf("");
 	return (NULL);
 }
 
@@ -32,8 +32,7 @@ dongle_t	create_dongles(int id)
 	pthread_mutex_init(&dongle.mutex_dongle, NULL);
 	return (dongle);
 }
-
-int	dealine(coder_t *coder)
+long	deadline(coder_t *coder)
 {
 	return (coder->last_compile + coder->time_to_burnout);
 }

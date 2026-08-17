@@ -18,3 +18,11 @@ char	*ft_strcpy(char *src)
 	dest[i] = '\0';
 	return (dest);
 }
+
+long	get_time(void)
+{
+	struct timeval	time;
+
+	gettimeofday(&time, NULL);
+	return (time.tv_sec * 1000L + time.tv_usec / 1000L);
+}

@@ -22,18 +22,20 @@ int	main(int argc, char **argv)
 		return (-1);
 	}
 	heap = heap_init(program->numbers_coders, program->scheduler);
-	// printf("%d\n", program->numbers_coders);
-	// printf("%d\n", program->time_to_burnout);
-	// printf("%d\n", program->time_to_compile);
-	// printf("%d\n", program->time_to_debug);
-	// printf("%d\n", program->time_to_refactor);
-	// printf("%d\n", program->numbers_of_compiles);
-	// printf("%d\n", program->dongle_cooldown);
-	// printf("%s\n", program->scheduler);
-	// printf("%d\n", program->runnig);
-	printf("%s\n", heap->scheduler);
-	printf("%d\n", heap->size);
-	printf("%d\n", heap->capacity);
+	for (int i = program->numbers_coders - 1; i >= 0; i--)
+	{
+		printf("PUSH: coder %d | size antes = %d\n",
+			program->coders[i].id, heap->size);
+
+		heappush(&heap, &program->coders[i], program->scheduler);
+
+		printf("size depois = %d\n", heap->size);
+	}
+	// printf("%s\n", heap->scheduler);
+	// printf("%d\n", heap->size);
+	// printf("%d\n", heap->capacity);
+	printf("%d\n", heap->coders[0]->id);
+	printf("%ld\n", heap->coders[0]->last_compile);
 	free_heap(heap);
 	return (0);
 }

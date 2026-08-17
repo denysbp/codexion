@@ -7,6 +7,7 @@
 # include <unistd.h>
 # include <time.h>
 # include <stdbool.h>
+# include <sys/time.h>
 
 # define CODERS 1
 # define TIME_BURNOUT 2
@@ -37,8 +38,8 @@ typedef	struct coder_s
 	dongle_t	*right;
 
 	int			id;
-	int			last_compile;
-	int			time_to_burnout;
+	long		last_compile;
+	long		time_to_burnout;
 	int			dongles;
 	bool		burned_out;
 }				coder_t;
@@ -46,18 +47,18 @@ typedef	struct coder_s
 typedef struct program_s
 {
 	int				numbers_coders;
-	int				time_to_burnout;
-	int				time_to_compile;
-	int				time_to_debug;
-	int				time_to_refactor;
+	long			time_to_burnout;
+	long			time_to_compile;
+	long			time_to_debug;
+	long			time_to_refactor;
 	int				numbers_of_compiles;
-	int				dongle_cooldown;
+	long			dongle_cooldown;
 
 	pthread_mutex_t	mutex_state;
 	coder_t			*coders;
 	dongle_t		*dongles;
 
-	int				runnig;
+	bool			runnig;
 	char			*scheduler;
 } 					program_t;
 
@@ -73,9 +74,11 @@ typedef struct heap_s
 bool		invalid_numbers(const char *str);
 bool		signal(char c);
 int			parser(const char *numbers_coders, error_t **error);
+long		parser_long(const char *numbers_coders, error_t **error);
 int			save_args(char **argv, program_t **program, error_t *error);
-int			dealine(coder_t *coder);
-int		has_priority(coder_t *coder_a, coder_t *coder_b, char *scheduler);
+long		deadline(coder_t *coder);
+int			has_priority(coder_t *coder_a, coder_t *coder_b, char *scheduler);
+long		get_time(void);
 
 
 

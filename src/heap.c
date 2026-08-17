@@ -5,7 +5,7 @@ heap_t	*heap_init(int capacity, char *scheduler)
 	heap_t	*heap;
 
 	heap = malloc(sizeof(heap_t));
-	heap->coders = malloc(sizeof(coder_t) * capacity);
+	heap->coders = malloc(sizeof(coder_t *) * capacity);
 	heap->size = 0;
 	heap->capacity = capacity;
 	heap->scheduler = ft_strcpy(scheduler);
@@ -93,7 +93,7 @@ int	has_priority(coder_t *coder_a, coder_t *coder_b, char *scheduler)
 	}
 	else if (!strcmp(scheduler, "edf"))
 	{
-		return (dealine(coder_a) < dealine(coder_b));
+		return (deadline(coder_a) < deadline(coder_b));
 	}
 	return (0);
 }
