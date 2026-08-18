@@ -14,6 +14,7 @@ SRC := \
 	$(PARSER)/parser_utils.c \
 	$(CODER)/coder.c \
 	$(CODER)/routine.c \
+	$(CODER)/simulation.c \
 	$(HEAP)/heap.c \
 	$(HEAP)/helps.c \
 	$(ENGINE)/engine.c \

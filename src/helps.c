@@ -39,7 +39,7 @@ void	program_usage()
 	printf("\tcompile        | ms spent compiling; >= 0\n");
 	printf("\tdebug          | ms spent debugging; >= 0\n");
 	printf("\trefactor       | ms spent refactoring; >= 0\n");
-	printf("\tcompile time   | compiles per code before simulation ends; >= 0\n");
+	printf("\tcompile time   | compiles per code before simulation ends; >= 1\n");
 	printf("\tcooldown       | ms for a dongle to become available; >= 0\n");
 	printf("\tscheduler      | type of scheduler, fifo or edf\n");
 }

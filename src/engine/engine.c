@@ -15,6 +15,8 @@ program_t	*generator_engine(char **argv, error_t *error)
 	program->coders = malloc(sizeof(coder_t) * program->numbers_coders);
 	program->dongles = malloc(sizeof(dongle_t) * program->numbers_coders);
 	pthread_mutex_init(&program->mutex_state, NULL);
+	pthread_mutex_init(&program->mutex_dongle, NULL);
+	pthread_cond_init(&program->cond_dongles, NULL);
 	while (i < program->numbers_coders)
 	{
 		program->dongles[i] = create_dongles(i + 1);

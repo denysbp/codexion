@@ -23,6 +23,7 @@ int	main(int argc, char **argv)
 		printf("%s\n", error.str);
 		return (ERROR);
 	}
+	scheduler(program);
 	free_engine(program);
 	return (0);
 }

@@ -15,8 +15,9 @@ coder_t	create_coders(program_t	**program, int id)
 	coder.can_run = false;
 	coder.finished = false;
 	coder.compile_times = (*program)->numbers_of_compiles;
+	coder.program = (*program);
 	pthread_mutex_init(&coder.mutex, NULL);
-	pthread_cond_init(&coder.cond, &coder.coder);
+	pthread_cond_init(&coder.cond, NULL);
 	return (coder);
 }
 
@@ -25,7 +26,7 @@ dongle_t	create_dongles(int id)
 	dongle_t	dongle;
 
 	dongle.id = id;
-	pthread_mutex_init(&dongle.mutex_dongle, NULL);
+	dongle.free = true;
 	return (dongle);
 }
 long	deadline(coder_t *coder)

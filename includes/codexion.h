@@ -27,9 +27,11 @@ typedef struct error_s
 
 typedef struct dongle_s
 {
-	pthread_mutex_t	mutex_dongle;
 	int				id;
+	bool			free;
 }					dongle_t;
+
+typedef struct program_s program_t;
 
 typedef	struct coder_s
 {
@@ -38,6 +40,7 @@ typedef	struct coder_s
 	dongle_t		*right;
 	pthread_cond_t	cond;
 	pthread_mutex_t	mutex;
+	program_t		*program;
 
 	int			id;
 	int			compile_times;
@@ -49,19 +52,22 @@ typedef	struct coder_s
 	bool		finished;
 }				coder_t;
 
+
 typedef struct program_s
 {
 	int				numbers_coders;
+	int				numbers_of_compiles;
 	long			time_to_burnout;
 	long			time_to_compile;
 	long			time_to_debug;
 	long			time_to_refactor;
-	int				numbers_of_compiles;
 	long			dongle_cooldown;
 
 	pthread_mutex_t	mutex_state;
 	coder_t			*coders;
 	dongle_t		*dongles;
+	pthread_mutex_t	mutex_dongle;
+	pthread_cond_t	cond_dongles;
 
 	bool			runnig;
 	char			*scheduler;
@@ -81,10 +87,12 @@ bool		invalid_numbers(const char *str);
 bool		signal(char c);
 bool		args_validation(error_t *error, program_t *program);
 int			parser(const char *numbers_coders, error_t **error);
+int			has_priority(coder_t *coder_a, coder_t *coder_b, char *scheduler);
+int			scheduler(program_t *program);
+int			take_dongle(coder_t **coder);
 long		parser_long(const char *numbers_coders, error_t **error);
 int			save_args(char **argv, program_t **program, error_t *error);
 long		deadline(coder_t *coder);
-int			has_priority(coder_t *coder_a, coder_t *coder_b, char *scheduler);
 long		get_time(void);
 
 

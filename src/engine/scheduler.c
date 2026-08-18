@@ -25,4 +25,6 @@ int	scheduler(program_t *program)
 			heappush(&heap, coder);
 		coder = heappop(&heap);
 	}
+	free_heap(heap);
+	return (0);
 }
