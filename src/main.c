@@ -7,7 +7,7 @@ int	main(int argc, char **argv)
 		printf("Program usage: ./codexion ");
 		printf("number_of_coders time_to_burnout time_to_compile time_to_debug");
 		printf("time_to_refactor number_of_compiles_required dongle_cooldown scheduler\n");
-		return (-1);
+		return (ERROR);
 	}
 	error_t	error;
 	program_t	*program;
@@ -19,13 +19,9 @@ int	main(int argc, char **argv)
 	{
 		printf("%s\n", error.str);
 		free(error.str);
-		return (-1);
+		return (ERROR);
 	}
-	heap = heap_init(program->numbers_coders, program->scheduler);
-	for (int i = program->numbers_coders - 1; i >= 0; i--)
-	{
-		heappush(&heap, &program->coders[i]);
-	}
+	heap = heap_init(program->numbers_coders, program->scheduler, &program);
 	printf("%d\n", heap->coders[0]->id);
 	printf("%ld\n", heap->coders[0]->last_compile);
 	free_heap(heap);

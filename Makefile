@@ -2,16 +2,20 @@ NAME := codexion
 FLAGS := -Wall -Wextra -Werror -pthread
 CC := cc
 FOLDER := src
+ENGINE := $(FOLDER)/engine
+CODER := $(FOLDER)/coder
+HEAP := $(FOLDER)/heap
+PARSER := $(FOLDER)/parser
 
 
 SRC := \
 	$(FOLDER)/main.c \
-	$(FOLDER)/parser.c \
-	$(FOLDER)/parser_utils.c \
-	$(FOLDER)/coder.c \
-	$(FOLDER)/heap.c \
+	$(PARSER)/parser.c \
+	$(PARSER)/parser_utils.c \
+	$(CODER)/coder.c \
+	$(HEAP)/heap.c \
+	$(ENGINE)/engine.c \
 	$(FOLDER)/helps.c \
-	$(FOLDER)/engine.c \
 
 OBJ = $(SRC:.c=.o)
 

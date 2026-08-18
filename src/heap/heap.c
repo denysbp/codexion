@@ -1,14 +1,21 @@
-#include "../includes/codexion.h"
+#include "../../includes/codexion.h"
 
-heap_t	*heap_init(int capacity, char *scheduler)
+heap_t	*heap_init(int capacity, char *scheduler, program_t **program)
 {
 	heap_t	*heap;
+	int		i;
 
 	heap = malloc(sizeof(heap_t));
 	heap->coders = malloc(sizeof(coder_t *) * capacity);
 	heap->size = 0;
 	heap->capacity = capacity;
 	heap->scheduler = ft_strcpy(scheduler);
+	i = 0;
+	while (i < (*program)->numbers_coders - 1)
+	{
+		heappush(&heap, &(*program)->coders[i]);
+		i++;
+	}
 	return (heap);
 }
 
@@ -73,34 +80,4 @@ coder_t	*heappop(heap_t **heap)
 	(*heap)->size--;
 	heapfy(heap, 0);
 	return (coder);
-}
-
-void	swap(coder_t **coder_a, coder_t **coder_b)
-{
-	coder_t	*tmp;
-
-	tmp = *coder_a;
-	*coder_a = *coder_b;
-	*coder_b = tmp;
-	return ;
-}
-
-int	has_priority(coder_t *coder_a, coder_t *coder_b, char *scheduler)
-{
-	if (!strcmp(scheduler, "fifo"))
-	{
-		return (coder_a->id < coder_b->id);
-	}
-	else if (!strcmp(scheduler, "edf"))
-	{
-		return (deadline(coder_a) < deadline(coder_b));
-	}
-	return (0);
-}
-
-void	free_heap(heap_t *heap)
-{
-	free(heap->coders);
-	free(heap->scheduler);
-	free(heap);
 }

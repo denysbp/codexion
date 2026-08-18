@@ -1,4 +1,4 @@
-#include "../includes/codexion.h"
+#include "../../includes/codexion.h"
 
 
 char	*error_message(const char *str)

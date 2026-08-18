@@ -85,7 +85,7 @@ long		get_time(void);
 program_t	*generator_engine(char **argv, error_t *error);
 coder_t		create_coders(program_t	**program, int id);
 dongle_t	create_dongles(int id);
-heap_t		*heap_init(int capacity, char *scheduler);
+heap_t		*heap_init(int capacity, char *scheduler, program_t **program);
 coder_t		*heappop(heap_t **heap);
 
 void		*couder_routine(void *);
