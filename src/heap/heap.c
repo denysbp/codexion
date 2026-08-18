@@ -11,7 +11,7 @@ heap_t	*heap_init(int capacity, char *scheduler, program_t **program)
 	heap->capacity = capacity;
 	heap->scheduler = ft_strcpy(scheduler);
 	i = 0;
-	while (i < (*program)->numbers_coders - 1)
+	while (i < (*program)->numbers_coders)
 	{
 		heappush(&heap, &(*program)->coders[i]);
 		i++;

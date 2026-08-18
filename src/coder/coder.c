@@ -1,14 +1,6 @@
 #include "../../includes/codexion.h"
 
 
-void	*couder_routine(void *s)
-{
-	(void)s;
-	printf("");
-	return (NULL);
-}
-
-
 coder_t	create_coders(program_t	**program, int id)
 {
 	coder_t	coder;
@@ -20,7 +12,7 @@ coder_t	create_coders(program_t	**program, int id)
 	coder.last_compile = 0;
 	coder.left = &(*program)->dongles[id - 1];
 	coder.right = &(*program)->dongles[((id - 1) + 1) % (*program)->numbers_coders];
-	pthread_create(&coder.coder, NULL, &couder_routine, NULL);
+	pthread_create(&coder.coder, NULL, &coder_routine, NULL);
 	return (coder);
 }
 

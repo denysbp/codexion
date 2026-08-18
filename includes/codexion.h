@@ -73,6 +73,7 @@ typedef struct heap_s
 
 bool		invalid_numbers(const char *str);
 bool		signal(char c);
+bool		args_validation(error_t *error, program_t *program);
 int			parser(const char *numbers_coders, error_t **error);
 long		parser_long(const char *numbers_coders, error_t **error);
 int			save_args(char **argv, program_t **program, error_t *error);
@@ -88,12 +89,14 @@ dongle_t	create_dongles(int id);
 heap_t		*heap_init(int capacity, char *scheduler, program_t **program);
 coder_t		*heappop(heap_t **heap);
 
-void		*couder_routine(void *);
 void		free_engine(program_t *program);
 void		heapfy(heap_t **heap, int i);
 void		heappush(heap_t	**heap, coder_t	*coder);
 void		swap(coder_t **coder_a, coder_t **coder_b);
 void		free_heap(heap_t *heap);
+void		*coder_routine(void *coder);
+void		program_usage();
+
 
 char		*error_message(const char *str);
 char		*ft_strcpy(char *src);

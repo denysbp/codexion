@@ -26,3 +26,20 @@ long	get_time(void)
 	gettimeofday(&time, NULL);
 	return (time.tv_sec * 1000L + time.tv_usec / 1000L);
 }
+
+void	program_usage()
+{
+	printf("usage: ./codexion ");
+	printf("<coders> <burnout> <compile> ");
+	printf("<debug> <refactor> <compile times> <cooldown> <scheduler>\n");
+	printf("\n");
+	printf("Arguments:\n");
+	printf("\tcoders         | numbers of coder; >= 1\n");
+	printf("\tburnout        | ms until the coder burnout; >= 0\n");
+	printf("\tcompile        | ms spent compiling; >= 0\n");
+	printf("\tdebug          | ms spent debugging; >= 0\n");
+	printf("\trefactor       | ms spent refactoring; >= 0\n");
+	printf("\tcompile time   | compiles per code before simulation ends; >= 0\n");
+	printf("\tcooldown       | ms for a dongle to become available; >= 0\n");
+	printf("\tscheduler      | type of scheduler, fifo or edf\n");
+}

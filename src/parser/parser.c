@@ -72,3 +72,12 @@ int	save_args(char **argv, program_t **program, error_t *error)
 	return (0);
 }
 
+bool	args_validation(error_t *error, program_t *program)
+{
+	if (program->numbers_coders == 0)
+	{
+		error->str = error_message("Numbers of coder must be >= 1");
+		return (false);
+	}
+	return (true);
+}

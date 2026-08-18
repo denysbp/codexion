@@ -13,7 +13,9 @@ SRC := \
 	$(PARSER)/parser.c \
 	$(PARSER)/parser_utils.c \
 	$(CODER)/coder.c \
+	$(CODER)/routine.c \
 	$(HEAP)/heap.c \
+	$(HEAP)/helps.c \
 	$(ENGINE)/engine.c \
 	$(FOLDER)/helps.c \
 
