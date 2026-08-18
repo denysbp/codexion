@@ -10,6 +10,7 @@ heap_t	*heap_init(int capacity, char *scheduler, program_t **program)
 	heap->size = 0;
 	heap->capacity = capacity;
 	heap->scheduler = ft_strcpy(scheduler);
+	pthread_mutex_init(&heap->mutex, NULL);
 	i = 0;
 	while (i < (*program)->numbers_coders)
 	{

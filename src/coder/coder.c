@@ -12,7 +12,11 @@ coder_t	create_coders(program_t	**program, int id)
 	coder.last_compile = 0;
 	coder.left = &(*program)->dongles[id - 1];
 	coder.right = &(*program)->dongles[((id - 1) + 1) % (*program)->numbers_coders];
-	pthread_create(&coder.coder, NULL, &coder_routine, NULL);
+	coder.can_run = false;
+	coder.finished = false;
+	coder.compile_times = (*program)->numbers_of_compiles;
+	pthread_mutex_init(&coder.mutex, NULL);
+	pthread_cond_init(&coder.cond, &coder.coder);
 	return (coder);
 }
 

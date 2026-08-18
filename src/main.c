@@ -9,7 +9,6 @@ int	main(int argc, char **argv)
 	}
 	error_t	error;
 	program_t	*program;
-	heap_t		*heap;
 
 	error.str = "";
 	program = generator_engine(argv, &error);
@@ -24,8 +23,6 @@ int	main(int argc, char **argv)
 		printf("%s\n", error.str);
 		return (ERROR);
 	}
-	heap = heap_init(program->numbers_coders, program->scheduler, &program);
-	free_heap(heap);
 	free_engine(program);
 	return (0);
 }

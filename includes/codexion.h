@@ -33,15 +33,20 @@ typedef struct dongle_s
 
 typedef	struct coder_s
 {
-	pthread_t	coder;
-	dongle_t	*left;
-	dongle_t	*right;
+	pthread_t		coder;
+	dongle_t		*left;
+	dongle_t		*right;
+	pthread_cond_t	cond;
+	pthread_mutex_t	mutex;
 
 	int			id;
+	int			compile_times;
 	long		last_compile;
 	long		time_to_burnout;
 	int			dongles;
 	bool		burned_out;
+	bool		can_run;
+	bool		finished;
 }				coder_t;
 
 typedef struct program_s
@@ -64,10 +69,11 @@ typedef struct program_s
 
 typedef struct heap_s
 {
-	coder_t	**coders;
-	int		size;
-	int		capacity;
-	char	*scheduler;
+	coder_t			**coders;
+	int				size;
+	int				capacity;
+	char			*scheduler;
+	pthread_mutex_t mutex;
 }			heap_t;
 
 
@@ -94,7 +100,7 @@ void		heapfy(heap_t **heap, int i);
 void		heappush(heap_t	**heap, coder_t	*coder);
 void		swap(coder_t **coder_a, coder_t **coder_b);
 void		free_heap(heap_t *heap);
-void		*coder_routine(void *coder);
+void		*coder_routine(void *arg);
 void		program_usage();
 
 
