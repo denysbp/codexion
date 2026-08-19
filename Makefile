@@ -15,6 +15,7 @@ SRC := \
 	$(CODER)/coder.c \
 	$(CODER)/routine.c \
 	$(CODER)/simulation.c \
+	$(CODER)/helps.c \
 	$(HEAP)/heap.c \
 	$(HEAP)/helps.c \
 	$(ENGINE)/engine.c \
