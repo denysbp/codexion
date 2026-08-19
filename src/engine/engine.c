@@ -19,13 +19,13 @@ program_t	*generator_engine(char **argv, error_t *error)
 	pthread_cond_init(&program->cond_dongles, NULL);
 	while (i < program->numbers_coders)
 	{
-		program->dongles[i] = create_dongles(i + 1);
+		create_coders(program, &program->coders[i], i + 1);
 		i++;
 	}
 	i = 0;
 	while (i < program->numbers_coders)
 	{
-		program->coders[i] = create_coders(&program, i + 1);
+		create_dongle(&program->dongles[i], i + 1);
 		i++;
 	}
 	i = 0;

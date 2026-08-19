@@ -90,6 +90,7 @@ int			parser(const char *numbers_coders, error_t **error);
 int			has_priority(coder_t *coder_a, coder_t *coder_b, char *scheduler);
 int			scheduler(program_t *program);
 int			take_dongle(coder_t **coder);
+int			release_dongle(coder_t **coder);
 long		parser_long(const char *numbers_coders, error_t **error);
 int			save_args(char **argv, program_t **program, error_t *error);
 long		deadline(coder_t *coder);
@@ -98,8 +99,8 @@ long		get_time(void);
 
 
 program_t	*generator_engine(char **argv, error_t *error);
-coder_t		create_coders(program_t	**program, int id);
-dongle_t	create_dongles(int id);
+void		create_coders(program_t	*program, coder_t *coder, int id);
+void		create_dongle(dongle_t *dongle, int id);
 heap_t		*heap_init(int capacity, char *scheduler, program_t **program);
 coder_t		*heappop(heap_t **heap);
 
