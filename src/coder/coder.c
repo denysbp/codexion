@@ -18,7 +18,6 @@ void	create_coders(program_t	*program,coder_t *coder, int id)
 	pthread_cond_init(&coder->cond, NULL);
 }
 
-
 void	create_dongle(dongle_t *dongle, int id)
 {
 	dongle->id = id;

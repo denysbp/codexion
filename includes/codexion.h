@@ -98,12 +98,13 @@ long		deadline(coder_t *coder);
 long		get_time(void);
 
 
-
 program_t	*generator_engine(char **argv, error_t *error);
 void		create_coders(program_t	*program, coder_t *coder, int id);
 void		create_dongle(dongle_t *dongle, int id);
 heap_t		*heap_init(int capacity, char *scheduler, program_t **program);
 coder_t		*heappop(heap_t **heap);
+
+
 
 void		free_engine(program_t *program);
 void		heapfy(heap_t **heap, int i);

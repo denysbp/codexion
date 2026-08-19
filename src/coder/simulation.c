@@ -3,8 +3,10 @@
 
 
 int	take_dongle(coder_t **coder)
-{
-	printf("Coder %d takes a dongles\n", (*coder)->id);
+{	long	time_stamp;
+
+	time_stamp = get_time() - (*coder)->program->start_time;
+	printf("%lu %d  has taken a dongle\n", time_stamp, (*coder)->id);
 	pthread_mutex_lock(&(*coder)->program->mutex_dongle);
 	while (!(*coder)->right->free || !(*coder)->left->free)
 	{
@@ -12,6 +14,7 @@ int	take_dongle(coder_t **coder)
 	}
 	(*coder)->right->free = false;
 	(*coder)->left->free = false;
+	(*coder)->dongles = 2;
 	pthread_mutex_unlock(&(*coder)->program->mutex_dongle);
 	return (1);
 }
@@ -24,8 +27,11 @@ int	release_dongle(coder_t **coder)
 	(*coder)->left->free = true;
 	pthread_cond_broadcast(&(*coder)->program->cond_dongles);
 	pthread_mutex_unlock(&(*coder)->program->mutex_dongle);
-	printf("Coder %d realase the dongle\n", (*coder)->id);
+	// printf("Coder %d realase the dongle\n", (*coder)->id);
 	return (1);
 }
 
-// unlock(mutex_dongle)
+int	compiling(coder_t **coder)
+{
+	return (0);
+}

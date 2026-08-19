@@ -6,6 +6,7 @@ int	scheduler(program_t *program)
 	heap_t	*heap;
 	coder_t	*coder;
 
+	program->start_time = get_time();
 	heap = heap_init(program->numbers_coders, program->scheduler, &program);
 	coder = heappop(&heap);
 	while (coder)

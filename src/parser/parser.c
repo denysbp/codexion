@@ -55,6 +55,7 @@ int	save_args(char **argv, program_t **program, error_t *error)
 	(*program)->time_to_refactor = parser_long(argv[TIME_REFACTOR], &error);
 	(*program)->numbers_of_compiles = parser(argv[NUMBER_COMPILES], &error);
 	(*program)->dongle_cooldown = parser_long(argv[DONGLE_COOLDOWN], &error);
+	(*program)->start_time = 0;
 	(*program)->scheduler = argv[SCHEDULER];
 	if (strcmp((*program)->scheduler, "fifo") != 0 && strcmp((*program)->scheduler, "edf") != 0)
 	{
