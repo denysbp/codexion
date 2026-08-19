@@ -62,6 +62,7 @@ typedef struct program_s
 	long			time_to_debug;
 	long			time_to_refactor;
 	long			dongle_cooldown;
+	long			start_time;
 
 	pthread_mutex_t	mutex_state;
 	coder_t			*coders;
@@ -111,6 +112,8 @@ void		swap(coder_t **coder_a, coder_t **coder_b);
 void		free_heap(heap_t *heap);
 void		*coder_routine(void *arg);
 void		program_usage();
+void		create_objects(program_t **program);
+
 
 
 char		*error_message(const char *str);

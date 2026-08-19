@@ -17,24 +17,31 @@ program_t	*generator_engine(char **argv, error_t *error)
 	pthread_mutex_init(&program->mutex_state, NULL);
 	pthread_mutex_init(&program->mutex_dongle, NULL);
 	pthread_cond_init(&program->cond_dongles, NULL);
-	while (i < program->numbers_coders)
-	{
-		create_coders(program, &program->coders[i], i + 1);
-		i++;
-	}
-	i = 0;
-	while (i < program->numbers_coders)
-	{
-		create_dongle(&program->dongles[i], i + 1);
-		i++;
-	}
-	i = 0;
+	create_objects(&program);
 	while (i < program->numbers_coders)
 	{
 		pthread_create(&program->coders[i].coder, NULL, &coder_routine, &program->coders[i]);
 		i++;
 	}
 	return (program);
+}
+
+void	create_objects(program_t **program)
+{
+	int	i;
+
+	i = 0;
+	while (i < (*program)->numbers_coders)
+	{
+		create_coders((*program), &(*program)->coders[i], i + 1);
+		i++;
+	}
+	i = 0;
+	while (i < (*program)->numbers_coders)
+	{
+		create_dongle(&(*program)->dongles[i], i + 1);
+		i++;
+	}
 }
 
 void	free_engine(program_t *program)
