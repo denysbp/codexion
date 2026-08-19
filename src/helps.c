@@ -27,6 +27,16 @@ long	get_time(void)
 	return (time.tv_sec * 1000L + time.tv_usec / 1000L);
 }
 
+
+struct timespec	get_timeout(long timestamp)
+{
+	struct timespec	ts;
+
+	ts.tv_sec = timestamp / 1000;
+	ts.tv_nsec = (timestamp % 1000) * 1000000L;
+	return (ts);
+}
+
 void	program_usage()
 {
 	printf("usage: ./codexion ");

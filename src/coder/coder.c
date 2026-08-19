@@ -7,7 +7,7 @@ void	create_coders(program_t	*program,coder_t *coder, int id)
 	coder->burned_out = false;
 	coder->time_to_burnout = program->time_to_burnout;
 	coder->dongles = 0;
-	coder->last_compile = get_time() + rand() + 500;
+	coder->last_compile = 0;
 	coder->left = &program->dongles[id - 1];
 	coder->right = &program->dongles[((id - 1) + 1) % program->numbers_coders];
 	coder->can_run = false;
@@ -22,6 +22,7 @@ void	create_dongle(dongle_t *dongle, int id)
 {
 	dongle->id = id;
 	dongle->free = true;
+	dongle->cool_down = 0;
 }
 long	deadline(coder_t *coder)
 {
