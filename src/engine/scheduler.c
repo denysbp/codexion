@@ -7,9 +7,10 @@ int	scheduler(program_t *program)
 	coder_t	*coder;
 
 	program->start_time = get_time();
+	pthread_create(&program->monitor, NULL, &burnout_monitoring, program);
 	heap = heap_init(program->numbers_coders, program->scheduler, &program);
 	coder = heappop(&heap);
-	while (coder)
+	while (coder && program->runnig)
 	{
 		pthread_mutex_lock(&coder->mutex);
 		coder->can_run = true;
@@ -25,6 +26,10 @@ int	scheduler(program_t *program)
 		if (coder->compile_times != 0)
 			heappush(&heap, coder);
 		coder = heappop(&heap);
+	}
+	for (int i = 0; i < program->numbers_coders; i++)
+	{
+		pthread_join(program->coders[i].coder, NULL);
 	}
 	free_heap(heap);
 	return (0);

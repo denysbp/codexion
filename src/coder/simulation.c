@@ -12,7 +12,7 @@ void	take_dongle(coder_t **coder)
 		|| get_time() < (*coder)->right->cool_down
 		|| get_time() < (*coder)->left->cool_down)
 	{
-
+		cond_selector((*coder));
 	}
 
 	(*coder)->right->free = false;
@@ -48,8 +48,11 @@ void	compiling(coder_t **coder)
 
 	time_stamp = get_time() - (*coder)->program->start_time;
 	(*coder)->last_compile = time_stamp;
+	(*coder)->has_compiled = true;
+	(*coder)->is_compiling = true;
 	printf("%lu %d is compiling\n", time_stamp, (*coder)->id);
 	usleep((*coder)->program->time_to_compile * 1000);
+	(*coder)->is_compiling = false;
 	return ;
 }
 

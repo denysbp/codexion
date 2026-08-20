@@ -17,6 +17,7 @@ program_t	*generator_engine(char **argv, error_t *error)
 	pthread_mutex_init(&program->mutex_state, NULL);
 	pthread_mutex_init(&program->mutex_dongle, NULL);
 	pthread_cond_init(&program->cond_dongles, NULL);
+	program->runnig = true;
 	create_objects(&program);
 	while (i < program->numbers_coders)
 	{

@@ -14,6 +14,8 @@ void	create_coders(program_t	*program,coder_t *coder, int id)
 	coder->finished = false;
 	coder->compile_times = program->numbers_of_compiles;
 	coder->program = program;
+	coder->is_compiling = false;
+	coder->has_compiled = false;
 	pthread_mutex_init(&coder->mutex, NULL);
 	pthread_cond_init(&coder->cond, NULL);
 }
@@ -26,5 +28,9 @@ void	create_dongle(dongle_t *dongle, int id)
 }
 long	deadline(coder_t *coder)
 {
+	if (!coder->has_compiled)
+	{
+		return (coder->time_to_burnout);
+	}
 	return (coder->last_compile + coder->time_to_burnout);
 }

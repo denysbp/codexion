@@ -53,6 +53,8 @@ typedef	struct coder_s
 	bool		burned_out;
 	bool		can_run;
 	bool		finished;
+	bool		has_compiled;
+	bool		is_compiling;
 }				coder_t;
 
 
@@ -68,6 +70,7 @@ typedef struct program_s
 	long			start_time;
 
 	pthread_mutex_t	mutex_state;
+	pthread_t		monitor;
 	coder_t			*coders;
 	dongle_t		*dongles;
 	pthread_mutex_t	mutex_dongle;
@@ -106,6 +109,10 @@ void		release_dongle(coder_t **coder);
 void		compiling(coder_t **coder);
 void		debugging(coder_t **coder);
 void		refactoring(coder_t **coder);
+void		burnout(coder_t **coder);
+void		wake_up(program_t **program);
+void		*burnout_monitoring(void *arg);
+
 
 
 program_t	*generator_engine(char **argv, error_t *error);

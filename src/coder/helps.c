@@ -27,3 +27,19 @@ void	cond_selector(coder_t *coder)
 			&coder->program->cond_dongles,
 			&coder->program->mutex_dongle);
 }
+
+void	wake_up(program_t **program)
+{
+	int	i;
+
+	i = 0;
+	while (i < (*program)->numbers_coders)
+	{
+		pthread_mutex_lock(&(*program)->coders[i].mutex);
+		(*program)->coders[i].finished = true;
+		pthread_cond_signal(&(*program)->coders[i].cond);
+		pthread_mutex_unlock(&(*program)->coders[i].mutex);
+		i++;
+	}
+	return ;
+}

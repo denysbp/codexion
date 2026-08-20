@@ -20,6 +20,7 @@ SRC := \
 	$(HEAP)/helps.c \
 	$(ENGINE)/engine.c \
 	$(ENGINE)/scheduler.c \
+	$(ENGINE)/monitoring.c \
 	$(FOLDER)/helps.c \
 
 OBJ = $(SRC:.c=.o)
