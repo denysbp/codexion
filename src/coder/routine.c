@@ -17,6 +17,7 @@ void	*coder_routine(void *arg)
 		take_dongle(&coder);
 		compiling(&coder);
 		debugging(&coder);
+		refactoring(&coder);
 		release_dongle(&coder);
 		pthread_mutex_lock(&coder->mutex);
 		coder->finished = true;

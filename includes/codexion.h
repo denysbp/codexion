@@ -96,15 +96,16 @@ int			parser(const char *numbers_coders, error_t **error);
 int			has_priority(coder_t *coder_a, coder_t *coder_b, char *scheduler);
 int			scheduler(program_t *program);
 int			save_args(char **argv, program_t **program, error_t *error);
-void		take_dongle(coder_t **coder);
-void		release_dongle(coder_t **coder);
-void		compiling(coder_t **coder);
-void		debugging(coder_t **coder);
-
 
 long		parser_long(const char *numbers_coders, error_t **error);
 long		deadline(coder_t *coder);
 long		get_time(void);
+
+void		take_dongle(coder_t **coder);
+void		release_dongle(coder_t **coder);
+void		compiling(coder_t **coder);
+void		debugging(coder_t **coder);
+void		refactoring(coder_t **coder);
 
 
 program_t	*generator_engine(char **argv, error_t *error);
@@ -127,6 +128,5 @@ void		cond_selector(coder_t *coder);
 
 char		*error_message(const char *str);
 char		*ft_strcpy(char *src);
-
 
 #endif

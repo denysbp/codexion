@@ -62,3 +62,13 @@ void	debugging(coder_t **coder)
 	usleep((*coder)->program->time_to_debug * 1000);
 	return ;
 }
+
+void	refactoring(coder_t **coder)
+{
+	long	time_stamp;
+
+	time_stamp = get_time() - (*coder)->program->start_time;
+	printf("%lu %d is refactoring\n", time_stamp, (*coder)->id);
+	usleep((*coder)->program->time_to_refactor * 1000);
+	return ;
+}
