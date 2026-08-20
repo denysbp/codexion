@@ -43,3 +43,14 @@ void	wake_up(program_t **program)
 	}
 	return ;
 }
+
+
+bool	is_stoping(coder_t **coder)
+{
+	if (!(*coder)->program->runnig)
+	{
+		release_dongle(coder);
+		return (true);
+	}
+	return (false);
+}

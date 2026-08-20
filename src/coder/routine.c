@@ -5,20 +5,22 @@ void	*coder_routine(void *arg)
 	coder_t	*coder;
 
 	coder = (coder_t *)arg;
-	pthread_mutex_lock(&coder->mutex);
 	while (coder->compile_times)
 	{
+		pthread_mutex_lock(&coder->mutex);
 		while (!coder->can_run && coder->program->runnig)
-		{
 			pthread_cond_wait(&coder->cond, &coder->mutex);
-		}
 		coder->can_run = false;
 		pthread_mutex_unlock(&coder->mutex);
 		if (!coder->program->runnig)
 			return (NULL);
 		take_dongle(&coder);
 		compiling(&coder);
+		if(is_stoping(&coder))
+			return (NULL);
 		debugging(&coder);
+		if(is_stoping(&coder))
+			return (NULL);
 		refactoring(&coder);
 		release_dongle(&coder);
 		pthread_mutex_lock(&coder->mutex);

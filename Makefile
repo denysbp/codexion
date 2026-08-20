@@ -1,5 +1,5 @@
 NAME := codexion
-FLAGS := -Wall -Wextra -Werror -pthread
+FLAGS := -Wall -Wextra -Werror -g -gdwarf-4 -pthread
 CC := cc
 FOLDER := src
 ENGINE := $(FOLDER)/engine

@@ -23,14 +23,19 @@ int	scheduler(program_t *program)
 		}
 		coder->finished = false;
 		pthread_mutex_unlock(&coder->mutex);
+		if (!program->runnig)
+			break;
 		if (coder->compile_times != 0)
 			heappush(&heap, coder);
 		coder = heappop(&heap);
 	}
+	pthread_mutex_lock(&program->mutex_state);
+	program->runnig = false;
+	pthread_mutex_unlock(&program->mutex_state);
 	for (int i = 0; i < program->numbers_coders; i++)
 	{
 		pthread_join(program->coders[i].coder, NULL);
 	}
-	free_heap(heap);
-	return (0);
+	pthread_join(program->monitor, NULL);
+	free_heap(heap);	return (0);
 }

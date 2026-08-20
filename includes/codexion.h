@@ -93,6 +93,8 @@ typedef struct heap_s
 bool		invalid_numbers(const char *str);
 bool		signal(char c);
 bool		args_validation(error_t *error, program_t *program);
+bool		is_stoping(coder_t **coder);
+
 
 
 int			parser(const char *numbers_coders, error_t **error);

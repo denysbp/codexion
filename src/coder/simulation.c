@@ -47,12 +47,16 @@ void	compiling(coder_t **coder)
 	long	time_stamp;
 
 	time_stamp = get_time() - (*coder)->program->start_time;
+	pthread_mutex_lock(&(*coder)->mutex);
 	(*coder)->last_compile = time_stamp;
 	(*coder)->has_compiled = true;
 	(*coder)->is_compiling = true;
+	pthread_mutex_unlock(&(*coder)->mutex);
 	printf("%lu %d is compiling\n", time_stamp, (*coder)->id);
 	usleep((*coder)->program->time_to_compile * 1000);
+	pthread_mutex_lock(&(*coder)->mutex);
 	(*coder)->is_compiling = false;
+	pthread_mutex_unlock(&(*coder)->mutex);
 	return ;
 }
 
