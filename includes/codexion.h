@@ -95,10 +95,12 @@ bool		args_validation(error_t *error, program_t *program);
 int			parser(const char *numbers_coders, error_t **error);
 int			has_priority(coder_t *coder_a, coder_t *coder_b, char *scheduler);
 int			scheduler(program_t *program);
-int			take_dongle(coder_t **coder);
-int			release_dongle(coder_t **coder);
 int			save_args(char **argv, program_t **program, error_t *error);
-int			compiling(coder_t **coder);
+void		take_dongle(coder_t **coder);
+void		release_dongle(coder_t **coder);
+void		compiling(coder_t **coder);
+void		debugging(coder_t **coder);
+
 
 long		parser_long(const char *numbers_coders, error_t **error);
 long		deadline(coder_t *coder);

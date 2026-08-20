@@ -2,7 +2,7 @@
 
 
 
-int	take_dongle(coder_t **coder)
+void	take_dongle(coder_t **coder)
 {
 	long	time_stamp;
 	pthread_mutex_lock(&(*coder)->program->mutex_dongle);
@@ -21,12 +21,12 @@ int	take_dongle(coder_t **coder)
 
 	pthread_mutex_unlock(&(*coder)->program->mutex_dongle);
 	time_stamp = get_time() - (*coder)->program->start_time;
-	printf("%lu %d  has taken a dongle\n", time_stamp, (*coder)->id);
-	return (1);
+	printf("%lu %d has taken a dongle\n", time_stamp, (*coder)->id);
+	return ;
 }
 
 
-int	release_dongle(coder_t **coder)
+void	release_dongle(coder_t **coder)
 {
 	long	cool_down;
 
@@ -39,17 +39,26 @@ int	release_dongle(coder_t **coder)
 	(*coder)->left->cool_down = cool_down;
 	pthread_cond_broadcast(&(*coder)->program->cond_dongles);
 	pthread_mutex_unlock(&(*coder)->program->mutex_dongle);
-	return (1);
+	return ;
 }
 
-int	compiling(coder_t **coder)
+void	compiling(coder_t **coder)
 {
 	long	time_stamp;
 
 	time_stamp = get_time() - (*coder)->program->start_time;
 	(*coder)->last_compile = time_stamp;
-	printf("%lu %d  is compiling\n", time_stamp, (*coder)->id);
+	printf("%lu %d is compiling\n", time_stamp, (*coder)->id);
 	usleep((*coder)->program->time_to_compile * 1000);
-	return (0);
+	return ;
 }
 
+void	debugging(coder_t **coder)
+{
+	long	time_stamp;
+
+	time_stamp = get_time() - (*coder)->program->start_time;
+	printf("%lu %d is debugging\n", time_stamp, (*coder)->id);
+	usleep((*coder)->program->time_to_debug * 1000);
+	return ;
+}
