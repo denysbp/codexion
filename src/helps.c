@@ -53,3 +53,10 @@ void	program_usage()
 	printf("\tcooldown       | ms for a dongle to become available; >= 0\n");
 	printf("\tscheduler      | type of scheduler, fifo or edf\n");
 }
+
+void	print_save(program_t *pg, char *str, long time, int id)
+{
+	pthread_mutex_lock(&pg->mutex_print);
+	printf("%lu %d %s\n", time, id, str);
+	pthread_mutex_unlock(&pg->mutex_print);
+}

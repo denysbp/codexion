@@ -21,7 +21,7 @@ void	take_dongle(coder_t **coder)
 
 	pthread_mutex_unlock(&(*coder)->program->mutex_dongle);
 	time_stamp = get_time() - (*coder)->program->start_time;
-	printf("%lu %d has taken a dongle\n", time_stamp, (*coder)->id);
+	print_save((*coder)->program, "has taken a dongle", time_stamp, (*coder)->id);
 	return ;
 }
 
@@ -52,7 +52,7 @@ void	compiling(coder_t **coder)
 	(*coder)->has_compiled = true;
 	(*coder)->is_compiling = true;
 	pthread_mutex_unlock(&(*coder)->mutex);
-	printf("%lu %d is compiling\n", time_stamp, (*coder)->id);
+	print_save((*coder)->program,"is compiling", time_stamp, (*coder)->id);
 	usleep((*coder)->program->time_to_compile * 1000);
 	pthread_mutex_lock(&(*coder)->mutex);
 	(*coder)->is_compiling = false;
@@ -65,7 +65,7 @@ void	debugging(coder_t **coder)
 	long	time_stamp;
 
 	time_stamp = get_time() - (*coder)->program->start_time;
-	printf("%lu %d is debugging\n", time_stamp, (*coder)->id);
+	print_save((*coder)->program, "is debugging", time_stamp, (*coder)->id);
 	usleep((*coder)->program->time_to_debug * 1000);
 	return ;
 }
@@ -75,7 +75,7 @@ void	refactoring(coder_t **coder)
 	long	time_stamp;
 
 	time_stamp = get_time() - (*coder)->program->start_time;
-	printf("%lu %d is refactoring\n", time_stamp, (*coder)->id);
+	print_save((*coder)->program, "is refactoring", time_stamp, (*coder)->id);
 	usleep((*coder)->program->time_to_refactor * 1000);
 	return ;
 }

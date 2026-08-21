@@ -8,11 +8,11 @@ void	*coder_routine(void *arg)
 	while (coder->compile_times)
 	{
 		pthread_mutex_lock(&coder->mutex);
-		while (!coder->can_run && coder->program->runnig)
+		while (!coder->can_run && !is_stoping(&coder))
 			pthread_cond_wait(&coder->cond, &coder->mutex);
 		coder->can_run = false;
 		pthread_mutex_unlock(&coder->mutex);
-		if (!coder->program->runnig)
+		if (is_stoping(&coder))
 			return (NULL);
 		take_dongle(&coder);
 		compiling(&coder);

@@ -30,7 +30,9 @@ void	*burnout_monitoring(void *arg)
 				{
 					program->coders[i].burned_out = true;
 					program->runnig = false;
+					pthread_mutex_lock(&program->mutex_print);
 					printf("%lu %d burned out\n", now, program->coders[i].id);
+					pthread_mutex_unlock(&program->mutex_print);
 				}
 				pthread_mutex_unlock(&program->mutex_state);
 				wake_up(&program);

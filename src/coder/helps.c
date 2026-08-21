@@ -47,7 +47,12 @@ void	wake_up(program_t **program)
 
 bool	is_stoping(coder_t **coder)
 {
-	if (!(*coder)->program->runnig)
+	bool	running;
+
+	pthread_mutex_lock(&(*coder)->program->mutex_state);
+	running = (*coder)->program->runnig;
+	pthread_mutex_unlock(&(*coder)->program->mutex_state);
+	if (!running)
 	{
 		release_dongle(coder);
 		return (true);

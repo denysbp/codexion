@@ -75,6 +75,7 @@ typedef struct program_s
 	dongle_t		*dongles;
 	pthread_mutex_t	mutex_dongle;
 	pthread_cond_t	cond_dongles;
+	pthread_mutex_t	mutex_print;
 
 	bool			runnig;
 	char			*scheduler;
@@ -111,9 +112,10 @@ void		release_dongle(coder_t **coder);
 void		compiling(coder_t **coder);
 void		debugging(coder_t **coder);
 void		refactoring(coder_t **coder);
-void		burnout(coder_t **coder);
-void		wake_up(program_t **program);
 void		*burnout_monitoring(void *arg);
+void		print_save(program_t *pg, char *str, long time, int id);
+void		wake_up(program_t **program);
+
 
 
 
