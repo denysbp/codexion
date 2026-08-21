@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   helps.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: deferrei <deferrei@student.42lisboa.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/08/21 19:15:18 by deferrei          #+#    #+#             */
+/*   Updated: 2026/08/21 19:59:33 by deferrei         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/codexion.h"
 
-void	swap(coder_t **coder_a, coder_t **coder_b)
+void	swap(t_coder **coder_a, t_coder **coder_b)
 {
-	coder_t	*tmp;
+	t_coder	*tmp;
 
 	tmp = *coder_a;
 	*coder_a = *coder_b;
@@ -10,7 +22,7 @@ void	swap(coder_t **coder_a, coder_t **coder_b)
 	return ;
 }
 
-int	has_priority(coder_t *coder_a, coder_t *coder_b, char *scheduler)
+int	has_priority(t_coder *coder_a, t_coder *coder_b, char *scheduler)
 {
 	long	deadline_a;
 	long	deadline_b;
@@ -26,17 +38,17 @@ int	has_priority(coder_t *coder_a, coder_t *coder_b, char *scheduler)
 	else if (!strcmp(scheduler, "edf"))
 	{
 		deadline_a = deadline(coder_a);
-        deadline_b = deadline(coder_b);
-
-        if (deadline_a != deadline_b)
-            return (deadline_a < deadline_b);
-
-        return (coder_a->id < coder_b->id);
+		deadline_b = deadline(coder_b);
+		if (deadline_a != deadline_b)
+		{
+			return (deadline_a < deadline_b);
+		}
+		return (coder_a->id < coder_b->id);
 	}
 	return (0);
 }
 
-void	free_heap(heap_t *heap)
+void	free_heap(t_heap *heap)
 {
 	free(heap->coders);
 	free(heap->scheduler);

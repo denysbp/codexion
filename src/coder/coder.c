@@ -1,7 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   coder.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: deferrei <deferrei@student.42lisboa.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/08/21 19:14:49 by deferrei          #+#    #+#             */
+/*   Updated: 2026/08/21 20:07:05 by deferrei         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/codexion.h"
 
-
-void	create_coders(program_t	*program,coder_t *coder, int id)
+void	create_coders(t_program	*program, t_coder *coder, int id)
 {
 	coder->id = id;
 	coder->burned_out = false;
@@ -21,13 +32,14 @@ void	create_coders(program_t	*program,coder_t *coder, int id)
 	pthread_cond_init(&coder->cond, NULL);
 }
 
-void	create_dongle(dongle_t *dongle, int id)
+void	create_dongle(t_dongle *dongle, int id)
 {
 	dongle->id = id;
 	dongle->free = true;
 	dongle->cool_down = 0;
 }
-long	deadline(coder_t *coder)
+
+long	deadline(t_coder *coder)
 {
 	if (!coder->has_compiled)
 	{

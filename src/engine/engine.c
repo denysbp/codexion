@@ -1,19 +1,28 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   engine.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: deferrei <deferrei@student.42lisboa.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/08/21 19:15:07 by deferrei          #+#    #+#             */
+/*   Updated: 2026/08/21 19:57:42 by deferrei         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/codexion.h"
 
-program_t	*generator_engine(char **argv, error_t *error)
+t_program	*generator_engine(char **argv, t_error *error)
 {
-	program_t	*program;
+	t_program	*program;
 	int			i;
 
 	i = 0;
-	program = malloc(sizeof(program_t));
+	program = malloc(sizeof(t_program));
 	if (save_args(argv, &program, error) == ERROR)
-	{
-		free(program);
-		return (NULL);
-	}
-	program->coders = malloc(sizeof(coder_t) * program->numbers_coders);
-	program->dongles = malloc(sizeof(dongle_t) * program->numbers_coders);
+		return (free(program), NULL);
+	program->coders = malloc(sizeof(t_coder) * program->numbers_coders);
+	program->dongles = malloc(sizeof(t_dongle) * program->numbers_coders);
 	pthread_mutex_init(&program->mutex_state, NULL);
 	pthread_mutex_init(&program->mutex_dongle, NULL);
 	pthread_mutex_init(&program->mutex_print, NULL);
@@ -23,13 +32,15 @@ program_t	*generator_engine(char **argv, error_t *error)
 	create_objects(&program);
 	while (i < program->numbers_coders)
 	{
-		pthread_create(&program->coders[i].coder, NULL, &coder_routine, &program->coders[i]);
+		pthread_create(
+			&program->coders[i].coder,
+			NULL, &coder_routine, &program->coders[i]);
 		i++;
 	}
 	return (program);
 }
 
-void	create_objects(program_t **program)
+void	create_objects(t_program **program)
 {
 	int	i;
 
@@ -47,7 +58,7 @@ void	create_objects(program_t **program)
 	}
 }
 
-void	free_engine(program_t *program)
+void	free_engine(t_program *program)
 {
 	free(program->dongles);
 	free(program->coders);

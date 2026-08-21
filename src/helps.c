@@ -1,5 +1,16 @@
-#include "../includes/codexion.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   helps.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: deferrei <deferrei@student.42lisboa.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/08/21 19:15:29 by deferrei          #+#    #+#             */
+/*   Updated: 2026/08/21 19:59:58 by deferrei         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#include "../includes/codexion.h"
 
 char	*ft_strcpy(char *src)
 {
@@ -27,7 +38,6 @@ long	get_time(void)
 	return (time.tv_sec * 1000L + time.tv_usec / 1000L);
 }
 
-
 struct timespec	get_timeout(long timestamp)
 {
 	struct timespec	ts;
@@ -37,7 +47,7 @@ struct timespec	get_timeout(long timestamp)
 	return (ts);
 }
 
-void	program_usage()
+void	program_usage(void)
 {
 	printf("usage: ./codexion ");
 	printf("<coders> <burnout> <compile> ");
@@ -49,12 +59,13 @@ void	program_usage()
 	printf("\tcompile        | ms spent compiling; >= 0\n");
 	printf("\tdebug          | ms spent debugging; >= 0\n");
 	printf("\trefactor       | ms spent refactoring; >= 0\n");
-	printf("\tcompile time   | compiles per code before simulation ends; >= 1\n");
+	printf(
+		"\tcompile time   | compiles per code before simulation ends; >= 1\n");
 	printf("\tcooldown       | ms for a dongle to become available; >= 0\n");
 	printf("\tscheduler      | type of scheduler, fifo or edf\n");
 }
 
-void	print_save(program_t *pg, char *str, long time, int id)
+void	print_save(t_program *pg, char *str, long time, int id)
 {
 	pthread_mutex_lock(&pg->mutex_print);
 	printf("%lu %d %s\n", time, id, str);

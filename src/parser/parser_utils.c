@@ -1,5 +1,16 @@
-#include "../../includes/codexion.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser_utils.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: deferrei <deferrei@student.42lisboa.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/08/21 19:15:22 by deferrei          #+#    #+#             */
+/*   Updated: 2026/08/21 19:42:07 by deferrei         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#include "../../includes/codexion.h"
 
 char	*error_message(const char *str)
 {

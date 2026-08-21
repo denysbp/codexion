@@ -1,12 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   simulation.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: deferrei <deferrei@student.42lisboa.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/08/21 19:15:04 by deferrei          #+#    #+#             */
+/*   Updated: 2026/08/21 19:56:37 by deferrei         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/codexion.h"
 
-
-
-void	take_dongle(coder_t **coder)
+void	take_dongle(t_coder **coder)
 {
 	long	time_stamp;
-	pthread_mutex_lock(&(*coder)->program->mutex_dongle);
 
+	pthread_mutex_lock(&(*coder)->program->mutex_dongle);
 	while (is_running((*coder)->program)
 		&& (!(*coder)->right->free
 			|| !(*coder)->left->free
@@ -23,15 +33,14 @@ void	take_dongle(coder_t **coder)
 	(*coder)->right->free = false;
 	(*coder)->left->free = false;
 	(*coder)->dongles = 2;
-
 	pthread_mutex_unlock(&(*coder)->program->mutex_dongle);
 	time_stamp = get_time() - (*coder)->program->start_time;
-	print_save((*coder)->program, "has taken a dongle", time_stamp, (*coder)->id);
+	print_save(
+		(*coder)->program, "has taken a dongle", time_stamp, (*coder)->id);
 	return ;
 }
 
-
-void	release_dongle(coder_t **coder)
+void	release_dongle(t_coder **coder)
 {
 	long	cool_down;
 
@@ -47,7 +56,7 @@ void	release_dongle(coder_t **coder)
 	return ;
 }
 
-void	compiling(coder_t **coder)
+void	compiling(t_coder **coder)
 {
 	long	time_stamp;
 
@@ -57,7 +66,7 @@ void	compiling(coder_t **coder)
 	(*coder)->has_compiled = true;
 	(*coder)->is_compiling = true;
 	pthread_mutex_unlock(&(*coder)->mutex);
-	print_save((*coder)->program,"is compiling", time_stamp, (*coder)->id);
+	print_save((*coder)->program, "is compiling", time_stamp, (*coder)->id);
 	usleep((*coder)->program->time_to_compile * 1000);
 	pthread_mutex_lock(&(*coder)->mutex);
 	(*coder)->is_compiling = false;
@@ -65,7 +74,7 @@ void	compiling(coder_t **coder)
 	return ;
 }
 
-void	debugging(coder_t **coder)
+void	debugging(t_coder **coder)
 {
 	long	time_stamp;
 
@@ -75,7 +84,7 @@ void	debugging(coder_t **coder)
 	return ;
 }
 
-void	refactoring(coder_t **coder)
+void	refactoring(t_coder **coder)
 {
 	long	time_stamp;
 

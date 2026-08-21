@@ -1,10 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   scheduler.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: deferrei <deferrei@student.42lisboa.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/08/21 19:15:12 by deferrei          #+#    #+#             */
+/*   Updated: 2026/08/21 19:58:38 by deferrei         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/codexion.h"
 
-
-int	scheduler(program_t *program)
+int	scheduler(t_program *program)
 {
-	heap_t	*heap;
-	coder_t	*coder;
+	t_heap	*heap;
+	t_coder	*coder;
 
 	program->start_time = get_time();
 	pthread_create(&program->monitor, NULL, &burnout_monitoring, program);
@@ -14,7 +25,7 @@ int	scheduler(program_t *program)
 	{
 		flow(&coder);
 		if (!program->runnig)
-			break;
+			break ;
 		if (coder->compile_times != 0)
 			heappush(&heap, coder);
 		coder = heappop(&heap);
@@ -23,10 +34,11 @@ int	scheduler(program_t *program)
 	program->runnig = false;
 	pthread_mutex_unlock(&program->mutex_state);
 	join_pthread(&program);
-	free_heap(heap);	return (0);
+	free_heap(heap);
+	return (0);
 }
 
-void	flow(coder_t **coder)
+void	flow(t_coder **coder)
 {
 	pthread_mutex_lock(&(*coder)->mutex);
 	(*coder)->program->request_counter++;
@@ -44,7 +56,7 @@ void	flow(coder_t **coder)
 	return ;
 }
 
-void	join_pthread(program_t **program)
+void	join_pthread(t_program **program)
 {
 	int	i;
 

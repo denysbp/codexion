@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   helps.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: deferrei <deferrei@student.42lisboa.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/08/21 19:14:58 by deferrei          #+#    #+#             */
+/*   Updated: 2026/08/21 19:56:20 by deferrei         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/codexion.h"
 
-void	cond_selector(coder_t *coder)
+void	cond_selector(t_coder *coder)
 {
 	long				now;
 	long				next_cooldown;
@@ -28,7 +40,7 @@ void	cond_selector(coder_t *coder)
 			&coder->program->mutex_dongle);
 }
 
-void	wake_up(program_t **program)
+void	wake_up(t_program **program)
 {
 	int	i;
 
@@ -45,8 +57,7 @@ void	wake_up(program_t **program)
 	return ;
 }
 
-
-bool	is_stoping(coder_t **coder)
+bool	is_stoping(t_coder **coder)
 {
 	if (!is_running((*coder)->program))
 	{
@@ -57,7 +68,7 @@ bool	is_stoping(coder_t **coder)
 	return (false);
 }
 
-bool	is_running(program_t *program)
+bool	is_running(t_program *program)
 {
 	bool	running;
 
