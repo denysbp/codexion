@@ -47,7 +47,7 @@ typedef	struct coder_s
 
 	long		time_to_burnout;
 	long		last_compile;
-	long		request_time;
+	long		request_order;
 	int			id;
 	int			compile_times;
 	int			dongles;
@@ -69,6 +69,7 @@ typedef struct program_s
 	long			time_to_refactor;
 	long			dongle_cooldown;
 	long			start_time;
+	long			request_counter;
 
 	pthread_mutex_t	mutex_state;
 	pthread_t		monitor;

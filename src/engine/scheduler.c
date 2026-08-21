@@ -29,7 +29,8 @@ int	scheduler(program_t *program)
 void	flow(coder_t **coder)
 {
 	pthread_mutex_lock(&(*coder)->mutex);
-	(*coder)->request_time = get_time();
+	(*coder)->program->request_counter++;
+	(*coder)->request_order = (*coder)->program->request_counter++;
 	(*coder)->can_run = true;
 	pthread_cond_signal(&(*coder)->cond);
 	pthread_mutex_unlock(&(*coder)->mutex);

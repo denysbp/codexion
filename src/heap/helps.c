@@ -17,9 +17,9 @@ int	has_priority(coder_t *coder_a, coder_t *coder_b, char *scheduler)
 
 	if (!strcmp(scheduler, "fifo"))
 	{
-		if (coder_a->request_time != coder_b->request_time)
+		if (coder_a->request_order != coder_b->request_order)
 		{
-			return ((coder_a->request_time < coder_b->request_time));
+			return ((coder_a->request_order < coder_b->request_order));
 		}
 		return (coder_a->id < coder_b->id);
 	}

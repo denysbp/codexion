@@ -16,7 +16,7 @@ void	create_coders(program_t	*program,coder_t *coder, int id)
 	coder->program = program;
 	coder->is_compiling = false;
 	coder->has_compiled = false;
-	coder->request_time = 0;
+	coder->request_order = 0;
 	pthread_mutex_init(&coder->mutex, NULL);
 	pthread_cond_init(&coder->cond, NULL);
 }
