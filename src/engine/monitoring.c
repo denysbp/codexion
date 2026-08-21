@@ -35,11 +35,18 @@ void	*burnout_monitoring(void *arg)
 					pthread_mutex_unlock(&program->mutex_print);
 				}
 				pthread_mutex_unlock(&program->mutex_state);
+				pthread_mutex_lock(&program->mutex_dongle);
+				pthread_cond_broadcast(&program->cond_dongles);
+				pthread_mutex_unlock(&program->mutex_dongle);
 				wake_up(&program);
 				return (NULL);
 			}
 			i++;
 		}
+		pthread_mutex_lock(&program->mutex_state);
+		running = program->runnig;
+		pthread_mutex_unlock(&program->mutex_state);
+
 		usleep(1000);
 	}
 	return (NULL);

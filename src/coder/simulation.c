@@ -7,14 +7,19 @@ void	take_dongle(coder_t **coder)
 	long	time_stamp;
 	pthread_mutex_lock(&(*coder)->program->mutex_dongle);
 
-	while (!(*coder)->right->free
-		|| !(*coder)->left->free
-		|| get_time() < (*coder)->right->cool_down
-		|| get_time() < (*coder)->left->cool_down)
+	while (is_running((*coder)->program)
+		&& (!(*coder)->right->free
+			|| !(*coder)->left->free
+			|| get_time() < (*coder)->right->cool_down
+			|| get_time() < (*coder)->left->cool_down))
 	{
 		cond_selector((*coder));
 	}
-
+	if (!is_running((*coder)->program))
+	{
+		pthread_mutex_unlock(&(*coder)->program->mutex_dongle);
+		return ;
+	}
 	(*coder)->right->free = false;
 	(*coder)->left->free = false;
 	(*coder)->dongles = 2;

@@ -15,6 +15,8 @@ void	*coder_routine(void *arg)
 		if (is_stoping(&coder))
 			return (NULL);
 		take_dongle(&coder);
+		if(is_stoping(&coder))
+			return (NULL);
 		compiling(&coder);
 		if(is_stoping(&coder))
 			return (NULL);

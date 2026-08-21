@@ -41,21 +41,28 @@ void	wake_up(program_t **program)
 		pthread_mutex_unlock(&(*program)->coders[i].mutex);
 		i++;
 	}
+	pthread_cond_broadcast(&(*program)->cond_dongles);
 	return ;
 }
 
 
 bool	is_stoping(coder_t **coder)
 {
-	bool	running;
-
-	pthread_mutex_lock(&(*coder)->program->mutex_state);
-	running = (*coder)->program->runnig;
-	pthread_mutex_unlock(&(*coder)->program->mutex_state);
-	if (!running)
+	if (!is_running((*coder)->program))
 	{
-		release_dongle(coder);
+		if ((*coder)->dongles)
+			release_dongle(coder);
 		return (true);
 	}
 	return (false);
+}
+
+bool	is_running(program_t *program)
+{
+	bool	running;
+
+	pthread_mutex_lock(&program->mutex_state);
+	running = program->runnig;
+	pthread_mutex_unlock(&program->mutex_state);
+	return (running);
 }

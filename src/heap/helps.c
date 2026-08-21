@@ -12,13 +12,26 @@ void	swap(coder_t **coder_a, coder_t **coder_b)
 
 int	has_priority(coder_t *coder_a, coder_t *coder_b, char *scheduler)
 {
+	long	deadline_a;
+	long	deadline_b;
+
 	if (!strcmp(scheduler, "fifo"))
 	{
+		if (coder_a->request_time != coder_b->request_time)
+		{
+			return ((coder_a->request_time < coder_b->request_time));
+		}
 		return (coder_a->id < coder_b->id);
 	}
 	else if (!strcmp(scheduler, "edf"))
 	{
-		return (deadline(coder_a) < deadline(coder_b));
+		deadline_a = deadline(coder_a);
+        deadline_b = deadline(coder_b);
+
+        if (deadline_a != deadline_b)
+            return (deadline_a < deadline_b);
+
+        return (coder_a->id < coder_b->id);
 	}
 	return (0);
 }

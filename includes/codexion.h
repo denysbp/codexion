@@ -45,10 +45,11 @@ typedef	struct coder_s
 	pthread_mutex_t	mutex;
 	program_t		*program;
 
+	long		time_to_burnout;
+	long		last_compile;
+	long		request_time;
 	int			id;
 	int			compile_times;
-	long		last_compile;
-	long		time_to_burnout;
 	int			dongles;
 	bool		burned_out;
 	bool		can_run;
@@ -95,6 +96,8 @@ bool		invalid_numbers(const char *str);
 bool		signal(char c);
 bool		args_validation(error_t *error, program_t *program);
 bool		is_stoping(coder_t **coder);
+bool		is_running(program_t *program);
+
 
 
 
@@ -115,8 +118,8 @@ void		refactoring(coder_t **coder);
 void		*burnout_monitoring(void *arg);
 void		print_save(program_t *pg, char *str, long time, int id);
 void		wake_up(program_t **program);
-
-
+void		flow(coder_t **coder);
+void		join_pthread(program_t **program);
 
 
 program_t	*generator_engine(char **argv, error_t *error);
