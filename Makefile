@@ -30,18 +30,25 @@ all: $(NAME)
 $(NAME): $(OBJ)
 	$(CC) $(FLAGS) $(OBJ) -Iincludes -o $(NAME)
 
-no-flags: $(OBJ)
-	$(CC) $(OBJ) -Iincludes -o $(NAME)
-
 %.o: %.c
 	$(CC) $(FLAGS) -c $< -o $@
 
 clean:
-	rm -rf $(OBJ)
+	@found=0; \
+	for obj in $(OBJ); do \
+		if [ -f "$$obj" ]; then \
+			rm -f "$$obj"; \
+			printf "rm -rf %s\n" "$$obj"; \
+			found=1; \
+		fi; \
+	done; \
+	if [ $$found -eq 0 ]; then \
+		echo "Nothing to do with make 'clean'"; \
+	fi
 
 fclean: clean
 	rm -rf $(NAME)
 
 re: fclean all
 
-.PHONY: fclean all re OBJ NAME
+.PHONY: fclean all re clean
