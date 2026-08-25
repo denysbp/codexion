@@ -6,6 +6,7 @@ ENGINE := $(FOLDER)/engine
 CODER := $(FOLDER)/coder
 HEAP := $(FOLDER)/heap
 PARSER := $(FOLDER)/parser
+TRASH := trash/
 
 
 SRC := \
@@ -16,6 +17,7 @@ SRC := \
 	$(CODER)/routine.c \
 	$(CODER)/simulation.c \
 	$(CODER)/helps.c \
+	$(CODER)/helps_utils.c \
 	$(HEAP)/heap.c \
 	$(HEAP)/helps.c \
 	$(ENGINE)/engine.c \

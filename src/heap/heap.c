@@ -6,7 +6,7 @@
 /*   By: deferrei <deferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/21 19:15:15 by deferrei          #+#    #+#             */
-/*   Updated: 2026/08/21 19:59:12 by deferrei         ###   ########.fr       */
+/*   Updated: 2026/08/25 14:49:54 by deferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,19 @@ t_heap	*heap_init(int capacity, char *scheduler, t_program **program)
 		heappush(&heap, &(*program)->coders[i]);
 		i++;
 	}
+	return (heap);
+}
+
+t_heap	*wait_heap_init(int capacity, char *scheduler)
+{
+	t_heap	*heap;
+
+	heap = malloc(sizeof(t_heap));
+	heap->coders = malloc(sizeof(t_coder *) * capacity);
+	heap->size = 0;
+	heap->capacity = capacity;
+	heap->scheduler = ft_strcpy(scheduler);
+	pthread_mutex_init(&heap->mutex, NULL);
 	return (heap);
 }
 

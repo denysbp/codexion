@@ -6,7 +6,7 @@
 /*   By: deferrei <deferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/21 19:15:18 by deferrei          #+#    #+#             */
-/*   Updated: 2026/08/21 19:59:33 by deferrei         ###   ########.fr       */
+/*   Updated: 2026/08/25 16:14:23 by deferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,20 @@ void	free_heap(t_heap *heap)
 	free(heap->coders);
 	free(heap->scheduler);
 	free(heap);
+}
+
+void	heap_remove(t_heap *heap, t_coder *coder)
+{
+	int	i;
+
+	i = 0;
+	while (i < heap->size && heap->coders[i] != coder)
+		i++;
+	if (i == heap->size)
+		return ;
+	heap->coders[i] = heap->coders[heap->size - 1];
+	heap->size--;
+	if (heap->size > 0)
+		heapfy(&heap, i);
+	return ;
 }

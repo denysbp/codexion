@@ -6,7 +6,7 @@
 /*   By: deferrei <deferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/21 19:15:04 by deferrei          #+#    #+#             */
-/*   Updated: 2026/08/21 19:56:37 by deferrei         ###   ########.fr       */
+/*   Updated: 2026/08/25 16:01:53 by deferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,29 @@
 
 void	take_dongle(t_coder **coder)
 {
-	long	time_stamp;
+	long		time_stamp;
+	t_program	*program;
 
-	pthread_mutex_lock(&(*coder)->program->mutex_dongle);
-	while (is_running((*coder)->program)
-		&& (!(*coder)->right->free
-			|| !(*coder)->left->free
-			|| get_time() < (*coder)->right->cool_down
-			|| get_time() < (*coder)->left->cool_down))
+	program = (*coder)->program;
+	pthread_mutex_lock(&program->mutex_dongle);
+	(*coder)->request_order = program->request_counter++;
+	heappush(&program->wait_heap, *coder);
+	while (is_running(program) && is_free(program, coder))
 	{
-		cond_selector((*coder));
+		cond_selector(*coder);
 	}
-	if (!is_running((*coder)->program))
+	heap_remove(program->wait_heap, *coder);
+	if (!is_running(program))
 	{
-		pthread_mutex_unlock(&(*coder)->program->mutex_dongle);
+		pthread_mutex_unlock(&program->mutex_dongle);
 		return ;
 	}
 	(*coder)->right->free = false;
 	(*coder)->left->free = false;
 	(*coder)->dongles = 2;
-	pthread_mutex_unlock(&(*coder)->program->mutex_dongle);
-	time_stamp = get_time() - (*coder)->program->start_time;
-	print_save(
-		(*coder)->program, "has taken a dongle", time_stamp, (*coder)->id);
+	pthread_mutex_unlock(&program->mutex_dongle);
+	time_stamp = get_time() - program->start_time;
+	print_save(program, "has taken a dongle", time_stamp, (*coder)->id);
 	return ;
 }
 
@@ -65,6 +65,7 @@ void	compiling(t_coder **coder)
 	(*coder)->last_compile = time_stamp;
 	(*coder)->has_compiled = true;
 	(*coder)->is_compiling = true;
+	(*coder)->compile_times--;
 	pthread_mutex_unlock(&(*coder)->mutex);
 	print_save((*coder)->program, "is compiling", time_stamp, (*coder)->id);
 	usleep((*coder)->program->time_to_compile * 1000);

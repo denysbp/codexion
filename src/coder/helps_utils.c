@@ -1,35 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   routine.c                                          :+:      :+:    :+:   */
+/*   helps_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: deferrei <deferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/08/21 19:15:01 by deferrei          #+#    #+#             */
-/*   Updated: 2026/08/25 14:49:11 by deferrei         ###   ########.fr       */
+/*   Created: 2026/08/25 15:45:37 by deferrei          #+#    #+#             */
+/*   Updated: 2026/08/25 16:02:13 by deferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/codexion.h"
 
-void	*coder_routine(void *arg)
+bool	coder_shares_dongle(t_coder *a, t_coder *b)
 {
-	t_coder	*coder;
+	return (a->left == b->left || a->left == b->right
+		|| a->right == b->left || a->right == b->right);
+}
 
-	coder = (t_coder *)arg;
-	while (coder->compile_times && is_running(coder->program))
-	{
-		take_dongle(&coder);
-		if (is_stoping(&coder))
-			return (NULL);
-		compiling(&coder);
-		if (is_stoping(&coder))
-			return (NULL);
-		debugging(&coder);
-		if (is_stoping(&coder))
-			return (NULL);
-		refactoring(&coder);
-		release_dongle(&coder);
-	}
-	return (NULL);
+bool	is_free(t_program *program, t_coder **coder)
+{
+	return (!(*coder)->right->free
+		|| !(*coder)->left->free
+		|| get_time() < (*coder)->right->cool_down
+		|| get_time() < (*coder)->left->cool_down
+		|| has_higher_priority_waiter(program->wait_heap, *coder));
 }

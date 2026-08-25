@@ -6,7 +6,7 @@
 /*   By: deferrei <deferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/21 19:49:39 by deferrei          #+#    #+#             */
-/*   Updated: 2026/08/21 20:06:12 by deferrei         ###   ########.fr       */
+/*   Updated: 2026/08/25 16:17:55 by deferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <stdbool.h>
 # include <sys/time.h>
 # include <unistd.h>
+# include "structs.h"
 # define CODERS 1
 # define TIME_BURNOUT 2
 # define TIME_COMPILE 3
@@ -31,86 +32,20 @@
 # define SCHEDULER 8
 # define ERROR -1
 
-typedef struct t_error
-{
-	char	*str;
-}			t_error;
-
-typedef struct t_dongle
-{
-	int				id;
-	bool			free;
-	long			cool_down;
-}					t_dongle;
-
-typedef struct t_program	t_program;
-
-typedef struct t_coder
-{
-	pthread_t		coder;
-	t_dongle		*left;
-	t_dongle		*right;
-	pthread_cond_t	cond;
-	pthread_mutex_t	mutex;
-	t_program		*program;
-
-	long			time_to_burnout;
-	long			last_compile;
-	long			request_order;
-	int				id;
-	int				compile_times;
-	int				dongles;
-	bool			burned_out;
-	bool			can_run;
-	bool			finished;
-	bool			has_compiled;
-	bool			is_compiling;
-}					t_coder;
-
-typedef struct t_program
-{
-	int				numbers_coders;
-	int				numbers_of_compiles;
-	long			time_to_burnout;
-	long			time_to_compile;
-	long			time_to_debug;
-	long			time_to_refactor;
-	long			dongle_cooldown;
-	long			start_time;
-	long			request_counter;
-
-	pthread_mutex_t	mutex_state;
-	pthread_t		monitor;
-	t_coder			*coders;
-	t_dongle		*dongles;
-	pthread_mutex_t	mutex_dongle;
-	pthread_cond_t	cond_dongles;
-	pthread_mutex_t	mutex_print;
-
-	bool			runnig;
-	char			*scheduler;
-}					t_program;
-
-typedef struct t_heap
-{
-	t_coder			**coders;
-	int				size;
-	int				capacity;
-	char			*scheduler;
-	pthread_mutex_t	mutex;
-}					t_heap;
-
-struct timespec	get_timeout(long timestamp);
 bool			invalid_numbers(const char *str);
 bool			signal(char c);
 bool			args_validation(t_error *error, t_program *program);
 bool			is_stoping(t_coder **coder);
 bool			is_running(t_program *program);
 bool			monitoring_flow(t_program **program, long now);
+bool			has_higher_priority_waiter(t_heap *heap, t_coder *coder);
+bool			coder_shares_dongle(t_coder *a, t_coder *b);
+bool			is_free(t_program *program, t_coder **coder);
 
 int				parser(const char *numbers_coders, t_error **error);
 int				has_priority(t_coder *coder_a,
 					t_coder *coder_b, char *scheduler);
+
 int				scheduler(t_program *program);
 int				save_args(char **argv, t_program **program, t_error *error);
 
@@ -130,10 +65,12 @@ void			flow(t_coder **coder);
 void			join_pthread(t_program **program);
 void			routine_flow(t_coder **coder);
 void			burnout(t_program **program, t_coder *coder, long now);
+void			heap_remove(t_heap *heap, t_coder *coder);
 
 t_program		*generator_engine(char **argv, t_error *error);
 t_heap			*heap_init(int capacity, char *scheduler, t_program **program);
 t_coder			*heappop(t_heap **heap);
+t_heap			*wait_heap_init(int capacity, char *scheduler);
 
 void			create_coders(t_program	*program, t_coder *coder, int id);
 void			create_dongle(t_dongle *dongle, int id);

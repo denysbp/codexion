@@ -6,7 +6,7 @@
 /*   By: deferrei <deferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/21 19:14:58 by deferrei          #+#    #+#             */
-/*   Updated: 2026/08/21 19:56:20 by deferrei         ###   ########.fr       */
+/*   Updated: 2026/08/25 16:01:24 by deferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,7 @@ void	cond_selector(t_coder *coder)
 	next_cooldown = 0;
 	if (now < coder->right->cool_down)
 		next_cooldown = coder->right->cool_down;
-	if (now < coder->left->cool_down
-		&& (next_cooldown == 0
+	if (now < coder->left->cool_down && (next_cooldown == 0
 			|| coder->left->cool_down < next_cooldown))
 		next_cooldown = coder->left->cool_down;
 	if (next_cooldown > 0)
@@ -53,7 +52,9 @@ void	wake_up(t_program **program)
 		pthread_mutex_unlock(&(*program)->coders[i].mutex);
 		i++;
 	}
+	pthread_mutex_lock(&(*program)->mutex_dongle);
 	pthread_cond_broadcast(&(*program)->cond_dongles);
+	pthread_mutex_unlock(&(*program)->mutex_dongle);
 	return ;
 }
 
@@ -76,4 +77,20 @@ bool	is_running(t_program *program)
 	running = program->runnig;
 	pthread_mutex_unlock(&program->mutex_state);
 	return (running);
+}
+
+bool	has_higher_priority_waiter(t_heap *heap, t_coder *coder)
+{
+	int	i;
+
+	i = 0;
+	while (i < heap->size)
+	{
+		if (heap->coders[i] != coder
+			&& coder_shares_dongle(heap->coders[i], coder)
+			&& has_priority(heap->coders[i], coder, heap->scheduler))
+			return (true);
+		i++;
+	}
+	return (false);
 }
