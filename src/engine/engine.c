@@ -6,7 +6,7 @@
 /*   By: deferrei <deferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/21 19:15:07 by deferrei          #+#    #+#             */
-/*   Updated: 2026/08/25 16:05:09 by deferrei         ###   ########.fr       */
+/*   Updated: 2026/08/25 16:37:15 by deferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ t_program	*generator_engine(char **argv, t_error *error)
 	program->wait_heap = wait_heap_init(program->numbers_coders,
 			program->scheduler);
 	program->runnig = true;
-	program->request_counter = 0;
 	create_objects(&program);
+	program->start_time = get_time();
 	while (i < program->numbers_coders)
 	{
 		pthread_create(&program->coders[i].coder,
@@ -57,7 +57,6 @@ void	create_objects(t_program **program)
 		create_dongle(&(*program)->dongles[i], i + 1);
 		i++;
 	}
-	(*program)->start_time = get_time();
 }
 
 void	free_engine(t_program *program)

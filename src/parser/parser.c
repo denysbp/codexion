@@ -6,7 +6,7 @@
 /*   By: deferrei <deferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/21 19:15:24 by deferrei          #+#    #+#             */
-/*   Updated: 2026/08/21 19:54:59 by deferrei         ###   ########.fr       */
+/*   Updated: 2026/08/25 16:37:06 by deferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ int	save_args(char **argv, t_program **program, t_error *error)
 	(*program)->dongle_cooldown = parser_long(argv[DONGLE_COOLDOWN], &error);
 	(*program)->start_time = 0;
 	(*program)->scheduler = argv[SCHEDULER];
+	(*program)->request_counter = 0;
 	if (strcmp((*program)->scheduler, "fifo") != 0
 		&& strcmp((*program)->scheduler, "edf") != 0)
 	{
