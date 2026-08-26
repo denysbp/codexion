@@ -6,7 +6,7 @@
 /*   By: deferrei <deferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/21 19:15:01 by deferrei          #+#    #+#             */
-/*   Updated: 2026/08/25 14:49:11 by deferrei         ###   ########.fr       */
+/*   Updated: 2026/08/26 14:05:07 by deferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	*coder_routine(void *arg)
 	t_coder	*coder;
 
 	coder = (t_coder *)arg;
-	while (coder->compile_times && is_running(coder->program))
+	while (has_compiles(coder) && is_running(coder->program))
 	{
 		take_dongle(&coder);
 		if (is_stoping(&coder))

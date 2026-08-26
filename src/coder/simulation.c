@@ -6,7 +6,7 @@
 /*   By: deferrei <deferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/21 19:15:04 by deferrei          #+#    #+#             */
-/*   Updated: 2026/08/25 16:01:53 by deferrei         ###   ########.fr       */
+/*   Updated: 2026/08/26 13:51:36 by deferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	take_dongle(t_coder **coder)
 	(*coder)->dongles = 2;
 	pthread_mutex_unlock(&program->mutex_dongle);
 	time_stamp = get_time() - program->start_time;
+	print_save(program, "has taken a dongle", time_stamp, (*coder)->id);
 	print_save(program, "has taken a dongle", time_stamp, (*coder)->id);
 	return ;
 }

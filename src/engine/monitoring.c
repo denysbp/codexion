@@ -6,7 +6,7 @@
 /*   By: deferrei <deferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/21 19:15:09 by deferrei          #+#    #+#             */
-/*   Updated: 2026/08/25 16:42:23 by deferrei         ###   ########.fr       */
+/*   Updated: 2026/08/26 13:59:05 by deferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,13 @@ void	*burnout_monitoring(void *arg)
 {
 	long		now;
 	t_program	*program;
-	bool		running;
 
 	program = (t_program *)arg;
-	pthread_mutex_lock(&program->mutex_state);
-	running = program->runnig;
-	pthread_mutex_unlock(&program->mutex_state);
-	while (running)
+	while (is_running(program))
 	{
 		now = get_time() - program->start_time;
 		if (monitoring_flow(&program, now))
 			return (NULL);
-		pthread_mutex_lock(&program->mutex_state);
-		running = program->runnig;
-		pthread_mutex_unlock(&program->mutex_state);
 		usleep(1000);
 	}
 	return (NULL);

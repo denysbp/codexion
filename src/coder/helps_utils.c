@@ -6,7 +6,7 @@
 /*   By: deferrei <deferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/25 15:45:37 by deferrei          #+#    #+#             */
-/*   Updated: 2026/08/25 16:02:13 by deferrei         ###   ########.fr       */
+/*   Updated: 2026/08/26 18:25:31 by deferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,4 +25,14 @@ bool	is_free(t_program *program, t_coder **coder)
 		|| get_time() < (*coder)->right->cool_down
 		|| get_time() < (*coder)->left->cool_down
 		|| has_higher_priority_waiter(program->wait_heap, *coder));
+}
+
+bool	has_compiles(t_coder *coder)
+{
+	bool	result;
+
+	pthread_mutex_lock(&coder->mutex);
+	result = coder->compile_times > 0;
+	pthread_mutex_unlock(&coder->mutex);
+	return (result);
 }
