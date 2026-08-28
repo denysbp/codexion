@@ -49,7 +49,7 @@ bool	invalid_numbers(const char *str)
 		}
 		i++;
 	}
-	if (strlen(str) >= 10 && strcmp(str, "2147483647") != 0)
+	if (strlen(str) >= 11 && strcmp(str, "2147483647") != 0)
 		return (true);
 	return (false);
 }
