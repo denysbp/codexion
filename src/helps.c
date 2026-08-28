@@ -65,9 +65,12 @@ void	program_usage(void)
 	printf("\tscheduler      | type of scheduler, fifo or edf\n");
 }
 
-void	print_save(t_program *pg, char *str, long time, int id)
+void	print_save(t_program *pg, char *str, int id)
 {
+	long	time_stamp;
+
 	pthread_mutex_lock(&pg->mutex_print);
-	printf("%lu %d %s\n", time, id, str);
+	time_stamp = get_time() - pg->start_time;
+	printf("%lu %d %s\n", time_stamp, id, str);
 	pthread_mutex_unlock(&pg->mutex_print);
 }

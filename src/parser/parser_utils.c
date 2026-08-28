@@ -38,13 +38,18 @@ bool	signal(char c)
 
 bool	invalid_numbers(const char *str)
 {
-	while (*str)
+	int	i;
+
+	i = 0;
+	while (str[i])
 	{
-		if (!(*str >= '0' && *str <= '9') && !signal(*str))
+		if (!(str[i] >= '0' && str[i] <= '9') && !signal(str[i]))
 		{
 			return (true);
 		}
-		str++;
+		i++;
 	}
+	if (strlen(str) >= 10 && strcmp(str, "2147483647") != 0)
+		return (true);
 	return (false);
 }

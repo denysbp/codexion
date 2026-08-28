@@ -23,7 +23,7 @@ void	*burnout_monitoring(void *arg)
 		now = get_time() - program->start_time;
 		if (monitoring_flow(&program, now))
 			return (NULL);
-		usleep(1000);
+		usleep(50);
 	}
 	return (NULL);
 }
@@ -43,7 +43,7 @@ bool	monitoring_flow(t_program **program, long now)
 		pthread_mutex_unlock(&((*program)->coders[i].mutex));
 		if (!compiling_now && now >= dead_line)
 		{
-			burnout(program, &(*program)->coders[i], now);
+			burnout(program, &(*program)->coders[i]);
 			return (true);
 		}
 		i++;
@@ -51,14 +51,14 @@ bool	monitoring_flow(t_program **program, long now)
 	return (false);
 }
 
-void	burnout(t_program **program, t_coder *coder, long now)
+void	burnout(t_program **program, t_coder *coder)
 {
 	pthread_mutex_lock(&(*program)->mutex_state);
 	if (!coder->burned_out)
 	{
 		coder->burned_out = true;
 		(*program)->runnig = false;
-		print_save((*program), "burned out", now, coder->id);
+		print_save((*program), "burned out", coder->id);
 	}
 	pthread_mutex_unlock(&(*program)->mutex_state);
 	pthread_mutex_lock(&(*program)->mutex_dongle);

@@ -16,10 +16,10 @@ int	parser(const char *numbers_coders, t_error **error)
 {
 	int	value;
 
-	if (invalid_numbers((const char *)numbers_coders))
+	if (invalid_numbers(numbers_coders))
 	{
 		(*error)->str = error_message(
-				"The numbers  must contain only NUMERS!!!");
+				"We can't process these values!!!");
 		return (ERROR);
 	}
 	value = atoi(numbers_coders);
@@ -39,10 +39,10 @@ long	parser_long(const char *numbers_coders, t_error **error)
 {
 	int	value;
 
-	if (invalid_numbers((const char *)numbers_coders))
+	if (invalid_numbers(numbers_coders))
 	{
 		(*error)->str = error_message(
-				"The numbers  must contain only NUMERS!!!");
+				"We can't process these values!!!!!!");
 		return (ERROR);
 	}
 	value = atoi(numbers_coders);

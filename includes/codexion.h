@@ -22,6 +22,7 @@
 # include <sys/time.h>
 # include <unistd.h>
 # include "structs.h"
+# include <limits.h>
 # define CODERS 1
 # define TIME_BURNOUT 2
 # define TIME_COMPILE 3
@@ -60,12 +61,12 @@ void			compiling(t_coder **coder);
 void			debugging(t_coder **coder);
 void			refactoring(t_coder **coder);
 void			*burnout_monitoring(void *arg);
-void			print_save(t_program *pg, char *str, long time, int id);
+void			print_save(t_program *pg, char *str, int id);
 void			wake_up(t_program **program);
 void			flow(t_coder **coder);
 void			join_pthread(t_program **program);
 void			routine_flow(t_coder **coder);
-void			burnout(t_program **program, t_coder *coder, long now);
+void			burnout(t_program **program, t_coder *coder);
 void			heap_remove(t_heap *heap, t_coder *coder);
 
 t_program		*generator_engine(char **argv, t_error *error);

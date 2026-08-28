@@ -25,11 +25,13 @@ void	*coder_routine(void *arg)
 		compiling(&coder);
 		if (is_stoping(&coder))
 			return (NULL);
+		release_dongle(&coder);
+		if (is_stoping(&coder))
+			return (NULL);
 		debugging(&coder);
 		if (is_stoping(&coder))
 			return (NULL);
 		refactoring(&coder);
-		release_dongle(&coder);
 	}
 	return (NULL);
 }

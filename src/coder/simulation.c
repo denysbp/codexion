@@ -14,7 +14,6 @@
 
 void	take_dongle(t_coder **coder)
 {
-	long		time_stamp;
 	t_program	*program;
 
 	program = (*coder)->program;
@@ -35,9 +34,8 @@ void	take_dongle(t_coder **coder)
 	(*coder)->left->free = false;
 	(*coder)->dongles = 2;
 	pthread_mutex_unlock(&program->mutex_dongle);
-	time_stamp = get_time() - program->start_time;
-	print_save(program, "has taken a dongle", time_stamp, (*coder)->id);
-	print_save(program, "has taken a dongle", time_stamp, (*coder)->id);
+	print_save(program, "has taken a dongle", (*coder)->id);
+	print_save(program, "has taken a dongle", (*coder)->id);
 	return ;
 }
 
@@ -68,7 +66,7 @@ void	compiling(t_coder **coder)
 	(*coder)->is_compiling = true;
 	(*coder)->compile_times--;
 	pthread_mutex_unlock(&(*coder)->mutex);
-	print_save((*coder)->program, "is compiling", time_stamp, (*coder)->id);
+	print_save((*coder)->program, "is compiling", (*coder)->id);
 	usleep((*coder)->program->time_to_compile * 1000);
 	pthread_mutex_lock(&(*coder)->mutex);
 	(*coder)->is_compiling = false;
@@ -81,7 +79,7 @@ void	debugging(t_coder **coder)
 	long	time_stamp;
 
 	time_stamp = get_time() - (*coder)->program->start_time;
-	print_save((*coder)->program, "is debugging", time_stamp, (*coder)->id);
+	print_save((*coder)->program, "is debugging", (*coder)->id);
 	usleep((*coder)->program->time_to_debug * 1000);
 	return ;
 }
@@ -91,7 +89,7 @@ void	refactoring(t_coder **coder)
 	long	time_stamp;
 
 	time_stamp = get_time() - (*coder)->program->start_time;
-	print_save((*coder)->program, "is refactoring", time_stamp, (*coder)->id);
+	print_save((*coder)->program, "is refactoring", (*coder)->id);
 	usleep((*coder)->program->time_to_refactor * 1000);
 	return ;
 }

@@ -20,7 +20,7 @@ void	create_coders(t_program	*program, t_coder *coder, int id)
 	coder->dongles = 0;
 	coder->last_compile = 0;
 	coder->left = &program->dongles[id - 1];
-	coder->right = &program->dongles[(id + 1) % program->numbers_coders];
+	coder->right = &program->dongles[id % program->numbers_coders];
 	coder->can_run = false;
 	coder->finished = false;
 	coder->compile_times = program->numbers_of_compiles;
