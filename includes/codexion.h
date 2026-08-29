@@ -6,7 +6,7 @@
 /*   By: deferrei <deferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/21 19:49:39 by deferrei          #+#    #+#             */
-/*   Updated: 2026/08/26 18:25:43 by deferrei         ###   ########.fr       */
+/*   Updated: 2026/08/29 02:50:39 by deferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ bool			is_running(t_program *program);
 bool			monitoring_flow(t_program **program, long now);
 bool			has_higher_priority_waiter(t_heap *heap, t_coder *coder);
 bool			coder_shares_dongle(t_coder *a, t_coder *b);
-bool			is_free(t_program *program, t_coder **coder);
+bool			is_blocked(t_program *program, t_coder **coder);
 bool			has_compiles(t_coder *coder);
 
 int				parser(const char *numbers_coders, t_error **error);

@@ -6,7 +6,7 @@
 /*   By: deferrei <deferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/21 19:15:04 by deferrei          #+#    #+#             */
-/*   Updated: 2026/08/26 13:51:36 by deferrei         ###   ########.fr       */
+/*   Updated: 2026/08/29 02:50:33 by deferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	take_dongle(t_coder **coder)
 	pthread_mutex_lock(&program->mutex_dongle);
 	(*coder)->request_order = program->request_counter++;
 	heappush(&program->wait_heap, *coder);
-	while (is_running(program) && is_free(program, coder))
+	while (is_running(program) && is_blocked(program, coder))
 	{
 		cond_selector(*coder);
 	}

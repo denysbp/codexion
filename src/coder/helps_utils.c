@@ -6,7 +6,7 @@
 /*   By: deferrei <deferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/25 15:45:37 by deferrei          #+#    #+#             */
-/*   Updated: 2026/08/26 18:25:31 by deferrei         ###   ########.fr       */
+/*   Updated: 2026/08/29 02:50:22 by deferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ bool	coder_shares_dongle(t_coder *a, t_coder *b)
 		|| a->right == b->left || a->right == b->right);
 }
 
-bool	is_free(t_program *program, t_coder **coder)
+bool	is_blocked(t_program *program, t_coder **coder)
 {
 	return (!(*coder)->right->free
 		|| !(*coder)->left->free
