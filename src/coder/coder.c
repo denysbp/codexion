@@ -6,7 +6,7 @@
 /*   By: deferrei <deferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/21 19:14:49 by deferrei          #+#    #+#             */
-/*   Updated: 2026/08/26 14:23:24 by deferrei         ###   ########.fr       */
+/*   Updated: 2026/09/03 21:04:18 by deferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	create_coders(t_program	*program, t_coder *coder, int id)
 	coder->right = &program->dongles[id % program->numbers_coders];
 	coder->can_run = false;
 	coder->finished = false;
-	coder->compile_times = program->numbers_of_compiles;
+	coder->compile_times = 0;
 	coder->program = program;
 	coder->is_compiling = false;
 	coder->has_compiled = false;

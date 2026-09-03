@@ -6,7 +6,7 @@
 /*   By: deferrei <deferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/21 19:15:09 by deferrei          #+#    #+#             */
-/*   Updated: 2026/08/26 13:59:05 by deferrei         ###   ########.fr       */
+/*   Updated: 2026/09/03 21:15:55 by deferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	*burnout_monitoring(void *arg)
 		now = get_time() - program->start_time;
 		if (monitoring_flow(&program, now))
 			return (NULL);
-		usleep(50);
+		usleep(100);
 	}
 	return (NULL);
 }
@@ -35,13 +35,16 @@ bool	monitoring_flow(t_program **program, long now)
 	long	dead_line;
 
 	i = 0;
+	pthread_mutex_lock(&(*program)->mutex_state);
+	dead_line = (*program)->time_to_burnout;
+	pthread_mutex_unlock(&(*program)->mutex_state);
+
 	while (i < (*program)->numbers_coders)
 	{
 		pthread_mutex_lock(&((*program)->coders[i].mutex));
 		compiling_now = (*program)->coders[i].is_compiling;
-		dead_line = deadline(&(*program)->coders[i]);
 		pthread_mutex_unlock(&((*program)->coders[i].mutex));
-		if (!compiling_now && now >= dead_line)
+		if (!compiling_now && now - (*program)->coders[i].last_compile >= dead_line)
 		{
 			burnout(program, &(*program)->coders[i]);
 			return (true);

@@ -6,7 +6,7 @@
 /*   By: deferrei <deferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/21 19:15:04 by deferrei          #+#    #+#             */
-/*   Updated: 2026/08/29 02:50:33 by deferrei         ###   ########.fr       */
+/*   Updated: 2026/09/03 21:26:40 by deferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void	take_dongle(t_coder **coder)
 {
 	t_program	*program;
 
+	if ((*coder)->left == (*coder)->right)
+		usleep((*coder)->program->time_to_burnout * 1000);
 	program = (*coder)->program;
 	pthread_mutex_lock(&program->mutex_dongle);
 	(*coder)->request_order = program->request_counter++;
@@ -59,12 +61,14 @@ void	compiling(t_coder **coder)
 {
 	long	time_stamp;
 
+	if ((*coder)->dongles < 2)
+		return ;
 	time_stamp = get_time() - (*coder)->program->start_time;
 	pthread_mutex_lock(&(*coder)->mutex);
 	(*coder)->last_compile = time_stamp;
 	(*coder)->has_compiled = true;
 	(*coder)->is_compiling = true;
-	(*coder)->compile_times--;
+	(*coder)->compile_times++;
 	pthread_mutex_unlock(&(*coder)->mutex);
 	print_save((*coder)->program, "is compiling", (*coder)->id);
 	usleep((*coder)->program->time_to_compile * 1000);
@@ -76,9 +80,6 @@ void	compiling(t_coder **coder)
 
 void	debugging(t_coder **coder)
 {
-	long	time_stamp;
-
-	time_stamp = get_time() - (*coder)->program->start_time;
 	print_save((*coder)->program, "is debugging", (*coder)->id);
 	usleep((*coder)->program->time_to_debug * 1000);
 	return ;
@@ -86,9 +87,6 @@ void	debugging(t_coder **coder)
 
 void	refactoring(t_coder **coder)
 {
-	long	time_stamp;
-
-	time_stamp = get_time() - (*coder)->program->start_time;
 	print_save((*coder)->program, "is refactoring", (*coder)->id);
 	usleep((*coder)->program->time_to_refactor * 1000);
 	return ;
