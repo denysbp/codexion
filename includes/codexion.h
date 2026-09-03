@@ -6,7 +6,7 @@
 /*   By: deferrei <deferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/21 19:49:39 by deferrei          #+#    #+#             */
-/*   Updated: 2026/08/29 02:50:39 by deferrei         ###   ########.fr       */
+/*   Updated: 2026/09/03 23:56:44 by deferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ void			*coder_routine(void *arg);
 void			program_usage(void);
 void			create_objects(t_program **program);
 void			cond_selector(t_coder *coder);
+void			print(t_error error);
 
 char			*error_message(const char *str);
 char			*ft_strcpy(char *src);

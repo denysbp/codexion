@@ -6,7 +6,7 @@
 /*   By: deferrei <deferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/25 15:45:37 by deferrei          #+#    #+#             */
-/*   Updated: 2026/09/03 21:00:36 by deferrei         ###   ########.fr       */
+/*   Updated: 2026/09/04 00:43:41 by deferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,11 @@ bool	has_compiles(t_coder *coder)
 	result = coder->compile_times < coder->program->numbers_of_compiles;
 	pthread_mutex_unlock(&coder->mutex);
 	return (result);
+}
+
+void	print(t_error error)
+{
+	pthread_mutex_lock(&error.mutex);
+	printf("%s\n", error.str);
+	pthread_mutex_unlock(&error.mutex);
 }

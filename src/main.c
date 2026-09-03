@@ -6,7 +6,7 @@
 /*   By: deferrei <deferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/21 19:15:32 by deferrei          #+#    #+#             */
-/*   Updated: 2026/08/21 20:00:21 by deferrei         ###   ########.fr       */
+/*   Updated: 2026/09/04 00:42:29 by deferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,17 @@ int	main(int argc, char **argv)
 		program_usage();
 		return (ERROR);
 	}
-	error.str = "";
 	program = generator_engine(argv, &error);
+	pthread_mutex_init(&error.mutex, NULL);
 	if (!program)
 	{
-		printf("%s\n", error.str);
+		print(error);
 		free(error.str);
 		return (ERROR);
 	}
 	if (!args_validation(&error, program))
 	{
-		printf("%s\n", error.str);
+		print(error);
 		return (ERROR);
 	}
 	scheduler(program);

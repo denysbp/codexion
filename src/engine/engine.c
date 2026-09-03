@@ -6,7 +6,7 @@
 /*   By: deferrei <deferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/21 19:15:07 by deferrei          #+#    #+#             */
-/*   Updated: 2026/08/25 16:37:15 by deferrei         ###   ########.fr       */
+/*   Updated: 2026/09/04 00:45:02 by deferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,4 +65,21 @@ void	free_engine(t_program *program)
 	free(program->coders);
 	free_heap(program->wait_heap);
 	free(program);
+}
+
+void	destroy(t_program **program)
+{
+	int	i;
+
+	i = 0;
+	while (i < (*program)->numbers_coders)
+	{
+		pthread_mutex_destroy(&(*program)->coders[i].mutex);
+		pthread_cond_destroy(&(*program)->coders[i].cond);
+		i++;
+	}
+	pthread_mutex_destroy(&(*program)->mutex_dongle);
+	pthread_mutex_destroy(&(*program)->mutex_print);
+	pthread_mutex_destroy(&(*program)->mutex_state);
+	pthread_cond_destroy(&(*program)->cond_dongles);
 }
