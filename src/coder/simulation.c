@@ -6,7 +6,7 @@
 /*   By: deferrei <deferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/21 19:15:04 by deferrei          #+#    #+#             */
-/*   Updated: 2026/09/04 00:44:32 by deferrei         ###   ########.fr       */
+/*   Updated: 2026/09/04 20:20:19 by deferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	take_dongle(t_coder **coder)
 	program = (*coder)->program;
 	if ((*coder)->left == (*coder)->right)
 	{
+		(*coder)->left->free = false;
 		print_save(program, "has taken a dongle", (*coder)->id);
 		usleep((*coder)->program->time_to_burnout * 1000);
 	}
@@ -33,11 +34,7 @@ void	take_dongle(t_coder **coder)
 		pthread_mutex_unlock(&program->mutex_dongle);
 		return ;
 	}
-	(*coder)->right->free = false;
-	print_save(program, "has taken a dongle", (*coder)->id);
-	(*coder)->left->free = false;
-	print_save(program, "has taken a dongle", (*coder)->id);
-	(*coder)->dongles = 2;
+	sucess(coder);
 	pthread_mutex_unlock(&program->mutex_dongle);
 }
 

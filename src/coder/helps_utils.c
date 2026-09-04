@@ -6,7 +6,7 @@
 /*   By: deferrei <deferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/25 15:45:37 by deferrei          #+#    #+#             */
-/*   Updated: 2026/09/04 00:43:41 by deferrei         ###   ########.fr       */
+/*   Updated: 2026/09/04 20:41:06 by deferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,17 @@ bool	has_compiles(t_coder *coder)
 
 void	print(t_error error)
 {
-	pthread_mutex_lock(&error.mutex);
 	printf("%s\n", error.str);
-	pthread_mutex_unlock(&error.mutex);
+}
+
+void	sucess(t_coder **coder)
+{
+	t_program	*program;
+
+	program = (*coder)->program;
+	(*coder)->right->free = false;
+	print_save(program, "has taken a dongle", (*coder)->id);
+	(*coder)->left->free = false;
+	print_save(program, "has taken a dongle", (*coder)->id);
+	(*coder)->dongles = 2;
 }

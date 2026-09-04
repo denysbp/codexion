@@ -6,7 +6,7 @@
 /*   By: deferrei <deferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/21 19:15:32 by deferrei          #+#    #+#             */
-/*   Updated: 2026/09/04 00:42:29 by deferrei         ###   ########.fr       */
+/*   Updated: 2026/09/04 20:41:14 by deferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ int	main(int argc, char **argv)
 		return (ERROR);
 	}
 	program = generator_engine(argv, &error);
-	pthread_mutex_init(&error.mutex, NULL);
 	if (!program)
 	{
 		print(error);

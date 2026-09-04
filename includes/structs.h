@@ -6,7 +6,7 @@
 /*   By: deferrei <deferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/25 16:18:18 by deferrei          #+#    #+#             */
-/*   Updated: 2026/09/04 00:18:02 by deferrei         ###   ########.fr       */
+/*   Updated: 2026/09/04 20:41:20 by deferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 typedef struct t_error
 {
 	char			*str;
-	pthread_mutex_t	mutex;
 }			t_error;
 
 typedef struct t_dongle
