@@ -6,7 +6,7 @@
 /*   By: deferrei <deferrei@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/21 19:15:07 by deferrei          #+#    #+#             */
-/*   Updated: 2026/09/04 00:45:02 by deferrei         ###   ########.fr       */
+/*   Updated: 2026/09/06 20:00:13 by deferrei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ void	create_objects(t_program **program)
 
 void	free_engine(t_program *program)
 {
+	destroy(&program);
 	free(program->dongles);
 	free(program->coders);
 	free_heap(program->wait_heap);
